@@ -5,7 +5,7 @@
 
 ## Завантаження та встановлення
 
-[**Завантажити інсталятор 1.0.10 для Windows x64 — EXE**](https://github.com/Vihten/TIRAS_Service_Manufacturing_Updates/releases/download/v1.0.10/TIRAS-Service-Manufacturing-1.0.10-Online-Setup-x64.exe)
+[**Завантажити інсталятор 1.0.11 для Windows x64 — EXE**](https://github.com/Vihten/TIRAS_Service_Manufacturing_Updates/releases/download/v1.0.11/TIRAS-Service-Manufacturing-1.0.11-Online-Setup-x64.exe)
 
 Завантажте лише цей EXE та запустіть його. Інсталятор сам завантажить решту
 файлів через інтернет, перевірить SHA-256 і встановить застосунок.
