@@ -1,6 +1,12 @@
 name: Publish Windows application release
 
 on:
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: Existing stable release tag (vMAJOR.MINOR.PATCH)
+        required: true
+        type: string
   push:
     tags:
       - 'v*'
@@ -22,12 +28,13 @@ jobs:
     env:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       GH_REPO: ${{ github.repository }}
-      RELEASE_TAG: ${{ github.ref_name }}
+      RELEASE_TAG: ${{ inputs.release_tag || github.ref_name }}
     steps:
       - name: Preserve release asset bytes
         run: git config --global core.autocrlf false
       - uses: actions/checkout@v4
         with:
+          ref: ${{ inputs.release_tag || github.ref }}
           persist-credentials: false
       - name: Validate assets, upload payload first, verify, and publish
         run: |
