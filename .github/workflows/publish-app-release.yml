@@ -105,12 +105,22 @@ jobs:
             throw 'Update manifest does not match this version and installer.'
           }
           $baseUrl = "https://github.com/$env:GH_REPO/releases/download/$tag"
-          $notes = @"
-          - Smoke Tester правильно виходить із завантажувача, якщо прошивка вже актуальна.
-          - Додано сповіщення про нові версії застосунку та встановлення оновлень.
-          - Прибрано зайві написи й нижній статусний рядок.
-          - Виправлено вигляд індикатора підключення.
-          "@
+          $notesByVersion = @{
+            '1.0.2' = @(
+              '- Smoke Tester правильно виходить із завантажувача, якщо прошивка вже актуальна.'
+              '- Додано сповіщення про нові версії застосунку та встановлення оновлень.'
+              '- Прибрано зайві написи й нижній статусний рядок.'
+              '- Виправлено вигляд індикатора підключення.'
+            ) -join "`n"
+            '1.0.3' = @(
+              '- Виправлено помилку UTF-8 під час підготовки та запису прошивки на Windows.'
+              '- Прибрано розрив контуру індикатора підключення.'
+            ) -join "`n"
+          }
+          if (-not $notesByVersion.ContainsKey($version)) {
+            throw "No approved release notes for version $version."
+          }
+          $notes = $notesByVersion[$version]
           $notesPath = Join-Path $env:RUNNER_TEMP "release-notes-$tag.md"
           [IO.File]::WriteAllText($notesPath, $notes)
           $releases = (Invoke-Gh api --paginate --slurp 'repos/{owner}/{repo}/releases?per_page=100' | ConvertFrom-Json)
