@@ -1,0 +1,171 @@
+name: Publish Windows application release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publish-windows-application
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: windows-latest
+    timeout-minutes: 20
+    defaults:
+      run:
+        shell: pwsh
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GH_REPO: ${{ github.repository }}
+      RELEASE_TAG: ${{ github.ref_name }}
+    steps:
+      - name: Preserve release asset bytes
+        run: git config --global core.autocrlf false
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Validate assets, upload payload first, verify, and publish
+        run: |
+          $ErrorActionPreference = 'Stop'
+          Set-StrictMode -Version Latest
+          function Invoke-Gh {
+            param([Parameter(ValueFromRemainingArguments = $true)][string[]]$Arguments)
+            $output = & gh @Arguments
+            if ($LASTEXITCODE -ne 0) { throw "GitHub CLI failed: $($Arguments[0]) $($Arguments[1])" }
+            return $output
+          }
+          $tag = $env:RELEASE_TAG
+          if ($env:GH_REPO -cne 'Vihten/TIRAS_Service_Manufacturing_Updates') {
+            throw 'This workflow publishes only the public Manufacturing updates repository.'
+          }
+          if ($tag -cnotmatch '^v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$') {
+            throw 'Expected a stable vMAJOR.MINOR.PATCH tag.'
+          }
+          $version = $tag.Substring(1)
+          $prefix = "TIRAS-Service-Manufacturing-$version"
+          $installer = "$prefix-Online-Setup-x64.exe"
+          $payload = "$prefix-payload.7z"
+          $manifestName = "$prefix-windows-x64.update.json"
+          $assetNames = @($payload, $installer, $manifestName, 'SHA256SUMS.txt')
+          $root = Join-Path 'release-assets' $tag
+          $files = @(Get-ChildItem -LiteralPath $root -Force)
+          if ($files.Count -ne $assetNames.Count -or
+              @($files | Where-Object { $_.PSIsContainer -or $_.Name -cnotin $assetNames }).Count -ne 0) {
+            throw 'Release directory must contain exactly the four approved public assets.'
+          }
+          $tracked = @(& git ls-files)
+          if ($LASTEXITCODE -ne 0) { throw 'Cannot inspect public repository files.' }
+          foreach ($path in $tracked) {
+            if ($path -ceq 'README.md' -or $path -ceq '.github/workflows/publish-app-release.yml') { continue }
+            if ($path -cnotmatch '^release-assets/(v(?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*))/(?:SHA256SUMS\.txt|TIRAS-Service-Manufacturing-[0-9]+\.[0-9]+\.[0-9]+-(?:Online-Setup-x64\.exe|payload\.7z|windows-x64\.update\.json))$') {
+              throw "Unexpected public file: $path"
+            }
+          }
+          $checksums = @{}
+          foreach ($line in Get-Content -LiteralPath (Join-Path $root 'SHA256SUMS.txt')) {
+            if ($line -cnotmatch '^([a-fA-F0-9]{64})  ([A-Za-z0-9._-]+)$') { throw 'Malformed checksum line.' }
+            $name = $Matches[2]
+            if ($name -cnotin @($payload, $installer, $manifestName) -or $checksums.ContainsKey($name)) {
+              throw "Unexpected or duplicate checksum: $name"
+            }
+            $checksums[$name] = $Matches[1].ToLowerInvariant()
+          }
+          if ($checksums.Count -ne 3) { throw 'All three public content assets require checksums.' }
+          foreach ($name in $checksums.Keys) {
+            $file = Get-Item -LiteralPath (Join-Path $root $name)
+            if ($file.Length -le 0 -or (Get-FileHash -LiteralPath $file.FullName -Algorithm SHA256).Hash -ine $checksums[$name]) {
+              throw "Local asset hash mismatch: $name"
+            }
+          }
+          $manifest = Get-Content -LiteralPath (Join-Path $root $manifestName) -Raw | ConvertFrom-Json
+          $setup = Get-Item -LiteralPath (Join-Path $root $installer)
+          $manifestKeys = @($manifest.PSObject.Properties.Name)
+          $allowedKeys = @('schemaVersion', 'version', 'channel', 'installerAsset', 'sha256', 'size')
+          if ($manifestKeys.Count -ne $allowedKeys.Count -or
+              @($manifestKeys | Where-Object { $_ -cnotin $allowedKeys }).Count -ne 0) {
+            throw 'Update manifest must contain exactly the six public schema fields.'
+          }
+          if (($manifest.schemaVersion -isnot [int] -and $manifest.schemaVersion -isnot [long]) -or
+              ($manifest.size -isnot [int] -and $manifest.size -isnot [long]) -or
+              $manifest.schemaVersion -ne 1 -or $manifest.version -cne $version -or
+              $manifest.channel -cne 'stable' -or $manifest.installerAsset -cne $installer -or
+              $manifest.sha256 -ine $checksums[$installer] -or $manifest.size -ne $setup.Length) {
+            throw 'Update manifest does not match this version and installer.'
+          }
+          $baseUrl = "https://github.com/$env:GH_REPO/releases/download/$tag"
+          $notes = @"
+          - Smoke Tester правильно виходить із завантажувача, якщо прошивка вже актуальна.
+          - Додано сповіщення про нові версії застосунку та встановлення оновлень.
+          - Прибрано зайві написи й нижній статусний рядок.
+          - Виправлено вигляд індикатора підключення.
+          "@
+          $notesPath = Join-Path $env:RUNNER_TEMP "release-notes-$tag.md"
+          [IO.File]::WriteAllText($notesPath, $notes)
+          $releases = (Invoke-Gh api --paginate --slurp 'repos/{owner}/{repo}/releases?per_page=100' | ConvertFrom-Json)
+          $existing = @($releases | ForEach-Object { $_ } | Where-Object { $_.tag_name -ceq $tag })
+          if ($existing.Count -gt 1) { throw 'Duplicate release tag.' }
+          if ($existing.Count -eq 0) {
+            Invoke-Gh release create $tag --verify-tag --draft --latest=false --title "TIRAS Service Manufacturing $version" --notes-file $notesPath
+          }
+          $release = Invoke-Gh release view $tag --json assets,isDraft,isPrerelease | ConvertFrom-Json
+          if ($release.isPrerelease) { throw 'A stable application release cannot be a prerelease.' }
+          foreach ($remoteAsset in $release.assets) {
+            if ($remoteAsset.name -cnotin $assetNames) { throw "Unexpected remote asset: $($remoteAsset.name)" }
+          }
+          if ($release.isDraft) {
+            # The array order makes the payload available before uploading the installer.
+            foreach ($name in $assetNames) {
+              if ($name -cnotin @($release.assets | ForEach-Object { $_.name })) {
+                Invoke-Gh release upload $tag (Join-Path $root $name)
+              }
+            }
+          } elseif (@($release.assets).Count -ne $assetNames.Count) {
+            throw 'Published releases must already contain exactly the four approved assets; no uploads or replacements are permitted.'
+          }
+          $downloadRoot = Join-Path $env:RUNNER_TEMP "verify-$tag-$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          New-Item -ItemType Directory -Path $downloadRoot | Out-Null
+          Invoke-Gh release download $tag --dir $downloadRoot
+          if (@(Get-ChildItem -LiteralPath $downloadRoot -File).Count -ne $assetNames.Count) {
+            throw 'Remote asset count mismatch.'
+          }
+          foreach ($name in $assetNames) {
+            $local = Get-Item -LiteralPath (Join-Path $root $name)
+            $remote = Get-Item -LiteralPath (Join-Path $downloadRoot $name)
+            if ($remote.Length -ne $local.Length -or
+                (Get-FileHash -LiteralPath $remote.FullName).Hash -cne (Get-FileHash -LiteralPath $local.FullName).Hash) {
+              throw "Downloaded release asset differs: $name"
+            }
+          }
+          # Publish without changing latest, then prove anonymous downloads before promotion.
+          if ($release.isDraft) {
+            Invoke-Gh release edit $tag --draft=false --latest=false
+          }
+          foreach ($name in $assetNames) {
+            $destination = Join-Path $downloadRoot "public-$name"
+            & curl.exe --fail --location --retry 5 --retry-all-errors --retry-delay 3 --max-time 180 --silent --show-error --output $destination "$baseUrl/$name"
+            if ($LASTEXITCODE -ne 0) { throw "Anonymous asset download failed: $name" }
+            if ((Get-FileHash -LiteralPath $destination).Hash -cne (Get-FileHash -LiteralPath (Join-Path $root $name)).Hash) {
+              throw "Anonymous asset hash mismatch: $name"
+            }
+          }
+          # Keep user-facing release notes identical on creation and verified reruns.
+          Invoke-Gh release edit $tag --notes-file $notesPath
+          $latest = Invoke-Gh api 'repos/{owner}/{repo}/releases/latest' | ConvertFrom-Json
+          if ($latest.tag_name -cnotmatch '^v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$') {
+            throw 'Cannot safely compare the existing latest release version.'
+          }
+          if ([version]$latest.tag_name.Substring(1) -gt [version]$version) {
+            "Verified $tag; preserving newer latest release $($latest.tag_name)."
+          } elseif ($latest.tag_name -ceq $tag) {
+            "Verified $tag; it is already the latest release."
+          } else {
+            Invoke-Gh release edit $tag --latest
+            $latest = Invoke-Gh api 'repos/{owner}/{repo}/releases/latest' | ConvertFrom-Json
+            if ($latest.tag_name -cne $tag) { throw 'Latest release does not match the verified tag.' }
+            "Published and verified $tag with $($assetNames.Count) public assets."
+          }
