@@ -46,6 +46,40 @@ jobs:
             if ($LASTEXITCODE -ne 0) { throw "GitHub CLI failed: $($Arguments[0]) $($Arguments[1])" }
             return $output
           }
+          function Get-StableVersion {
+            param([string]$ReleaseTag)
+            if ($ReleaseTag -cnotmatch '^v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$') {
+              throw 'Expected a stable vMAJOR.MINOR.PATCH tag.'
+            }
+            return [version]$ReleaseTag.Substring(1)
+          }
+          function Assert-PublicFeed {
+            param($Feed)
+            $feedVersion = Get-StableVersion $Feed.tag_name
+            $feedTag = $Feed.tag_name
+            $feedPrefix = "TIRAS-Service-Manufacturing-$($feedTag.Substring(1))"
+            $feedNames = @("$feedPrefix-payload.7z", "$feedPrefix-Online-Setup-x64.exe", "$feedPrefix-windows-x64.update.json", 'SHA256SUMS.txt')
+            if ($feedTag -ceq 'v1.0.3' -or $Feed.draft -isnot [bool] -or $Feed.draft -or
+                $Feed.prerelease -isnot [bool] -or $Feed.prerelease -or
+                $Feed.html_url -cne "https://github.com/$env:GH_REPO/releases/tag/$feedTag" -or
+                $Feed.body -isnot [string] -or [string]::IsNullOrWhiteSpace($Feed.body) -or
+                @($Feed.assets).Count -ne 4) { throw 'Invalid public update feed.' }
+            $seenNames = [Collections.Generic.HashSet[string]]::new([StringComparer]::Ordinal)
+            foreach ($feedAsset in $Feed.assets) {
+              if ($feedAsset.name -cnotin $feedNames -or -not $seenNames.Add($feedAsset.name) -or
+                  ($feedAsset.size -isnot [int] -and $feedAsset.size -isnot [long]) -or $feedAsset.size -le 0 -or
+                  $feedAsset.browser_download_url -cne "https://github.com/$env:GH_REPO/releases/download/$feedTag/$($feedAsset.name)") {
+                throw 'Invalid public update feed asset.'
+              }
+            }
+          }
+          function Test-CanPromoteRelease {
+            param([string]$CandidateTag, [string]$LatestTag, [string]$FeedTag)
+            if ($CandidateTag -ceq 'v1.0.3') { throw 'Version v1.0.3 has been withdrawn.' }
+            $candidateVersion = Get-StableVersion $CandidateTag
+            return ((Get-StableVersion $LatestTag) -le $candidateVersion -and
+                    (Get-StableVersion $FeedTag) -le $candidateVersion)
+          }
           $tag = $env:RELEASE_TAG
           if ($env:GH_REPO -cne 'Vihten/TIRAS_Service_Manufacturing_Updates') {
             throw 'This workflow publishes only the public Manufacturing updates repository.'
@@ -53,6 +87,7 @@ jobs:
           if ($tag -cnotmatch '^v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$') {
             throw 'Expected a stable vMAJOR.MINOR.PATCH tag.'
           }
+          if ($tag -ceq 'v1.0.3') { throw 'Version v1.0.3 has been withdrawn and must not be republished.' }
           $version = $tag.Substring(1)
           $prefix = "TIRAS-Service-Manufacturing-$version"
           $installer = "$prefix-Online-Setup-x64.exe"
@@ -68,7 +103,7 @@ jobs:
           $tracked = @(& git ls-files)
           if ($LASTEXITCODE -ne 0) { throw 'Cannot inspect public repository files.' }
           foreach ($path in $tracked) {
-            if ($path -ceq 'README.md' -or $path -ceq '.github/workflows/publish-app-release.yml') { continue }
+            if ($path -ceq 'README.md' -or $path -ceq 'latest.json' -or $path -ceq '.github/workflows/publish-app-release.yml') { continue }
             if ($path -cnotmatch '^release-assets/(v(?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*))/(?:SHA256SUMS\.txt|TIRAS-Service-Manufacturing-[0-9]+\.[0-9]+\.[0-9]+-(?:Online-Setup-x64\.exe|payload\.7z|windows-x64\.update\.json))$') {
               throw "Unexpected public file: $path"
             }
@@ -112,7 +147,8 @@ jobs:
               '- Прибрано зайві написи й нижній статусний рядок.'
               '- Виправлено вигляд індикатора підключення.'
             ) -join "`n"
-            '1.0.3' = @(
+            '1.0.4' = @(
+              '- Відновлено надійну перевірку та встановлення оновлень застосунку.'
               '- Виправлено помилку UTF-8 під час підготовки та запису прошивки на Windows.'
               '- Прибрано розрив контуру індикатора підключення.'
             ) -join "`n"
@@ -173,16 +209,51 @@ jobs:
           # Keep user-facing release notes identical on creation and verified reruns.
           Invoke-Gh release edit $tag --notes-file $notesPath
           $latest = Invoke-Gh api 'repos/{owner}/{repo}/releases/latest' | ConvertFrom-Json
-          if ($latest.tag_name -cnotmatch '^v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$') {
-            throw 'Cannot safely compare the existing latest release version.'
+          $feedFile = Invoke-Gh api 'repos/{owner}/{repo}/contents/latest.json?ref=main' | ConvertFrom-Json
+          $currentFeed = [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($feedFile.content)) | ConvertFrom-Json
+          Assert-PublicFeed $currentFeed
+          if (-not (Test-CanPromoteRelease $tag $latest.tag_name $currentFeed.tag_name)) {
+            "Verified $tag; preserving newer latest release or public feed."
+            exit 0
           }
-          if ([version]$latest.tag_name.Substring(1) -gt [version]$version) {
-            "Verified $tag; preserving newer latest release $($latest.tag_name)."
-          } elseif ($latest.tag_name -ceq $tag) {
-            "Verified $tag; it is already the latest release."
-          } else {
+          if ($latest.tag_name -cne $tag) {
             Invoke-Gh release edit $tag --latest
-            $latest = Invoke-Gh api 'repos/{owner}/{repo}/releases/latest' | ConvertFrom-Json
-            if ($latest.tag_name -cne $tag) { throw 'Latest release does not match the verified tag.' }
-            "Published and verified $tag with $($assetNames.Count) public assets."
           }
+          $latest = Invoke-Gh api 'repos/{owner}/{repo}/releases/latest' | ConvertFrom-Json
+          if ($latest.tag_name -cne $tag -or $latest.draft -or $latest.prerelease) {
+            throw 'Latest release does not match the verified stable tag.'
+          }
+          $newFeed = [ordered]@{
+            draft = $false
+            prerelease = $false
+            tag_name = $tag
+            html_url = "https://github.com/$env:GH_REPO/releases/tag/$tag"
+            body = $notes
+            assets = @($assetNames | ForEach-Object {
+              [ordered]@{
+                name = $_
+                size = (Get-Item -LiteralPath (Join-Path $root $_)).Length
+                browser_download_url = "$baseUrl/$_"
+              }
+            })
+          }
+          $feedJson = $newFeed | ConvertTo-Json -Depth 5
+          Assert-PublicFeed ($feedJson | ConvertFrom-Json)
+          $feedUpdate = [ordered]@{
+            message = "Publish verified application feed $tag"
+            branch = 'main'
+            sha = $feedFile.sha
+            content = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes($feedJson))
+          }
+          $feedRequestPath = Join-Path $env:RUNNER_TEMP "feed-update-$tag.json"
+          [IO.File]::WriteAllText($feedRequestPath, ($feedUpdate | ConvertTo-Json))
+          # Contents API compares the existing blob SHA; a concurrent feed change fails safely.
+          $feedWrite = Invoke-Gh api --method PUT 'repos/{owner}/{repo}/contents/latest.json' --input $feedRequestPath | ConvertFrom-Json
+          $publicFeedPath = Join-Path $downloadRoot 'published-latest.json'
+          $rawFeedUrl = "https://raw.githubusercontent.com/$env:GH_REPO/main/latest.json?commit=$($feedWrite.commit.sha)"
+          & curl.exe --fail --location --retry 5 --retry-all-errors --retry-delay 3 --max-time 60 --silent --show-error --output $publicFeedPath $rawFeedUrl
+          if ($LASTEXITCODE -ne 0) { throw 'Anonymous update feed download failed.' }
+          $publishedFeedJson = [IO.File]::ReadAllText($publicFeedPath)
+          if ($publishedFeedJson -cne $feedJson) { throw 'Published update feed differs from the verified content.' }
+          Assert-PublicFeed ($publishedFeedJson | ConvertFrom-Json)
+          "Published and verified $tag with $($assetNames.Count) public assets and the public update feed."
