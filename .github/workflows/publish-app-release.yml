@@ -119,7 +119,7 @@ jobs:
           if ($existing.Count -eq 0) {
             Invoke-Gh release create $tag --verify-tag --draft --latest=false --title "TIRAS Service Manufacturing $version" --notes-file $notesPath
           }
-          $release = Invoke-Gh release view $tag --json assets,isDraft,isPrerelease | ConvertFrom-Json
+          $release = Invoke-Gh release view $tag --json 'assets,isDraft,isPrerelease' | ConvertFrom-Json
           if ($release.isPrerelease) { throw 'A stable application release cannot be a prerelease.' }
           foreach ($remoteAsset in $release.assets) {
             if ($remoteAsset.name -cnotin $assetNames) { throw "Unexpected remote asset: $($remoteAsset.name)" }
