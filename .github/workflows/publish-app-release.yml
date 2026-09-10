@@ -185,6 +185,10 @@ jobs:
           $notesByVersion['1.0.13'] = @(
             '- Змійка наприкінці завантаження плавно ховає очі та язик без різкого зникнення.'
           ) -join "`n"
+          $notesByVersion['1.0.14'] = @(
+            '- Час до запуску пристрою враховує завантаження, запис, перевірку та перезапуск.'
+            '- Відлік не зникає між операціями та плавно уточнюється під час роботи.'
+          ) -join "`n"
           if (-not $notesByVersion.ContainsKey($version)) {
             throw "No approved release notes for version $version."
           }
