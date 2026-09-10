@@ -197,6 +197,9 @@ jobs:
             '- Час до запуску пристрою відображається посекундно, без кроків по 5 секунд.'
             '- Відлік продовжується під час пауз між повідомленнями про прогрес.'
           ) -join "`n"
+          $notesByVersion['1.0.17'] = @(
+            '- Підпис відліку змінено на «до завершення» для всіх операцій оновлення.'
+          ) -join "`n"
           if (-not $notesByVersion.ContainsKey($version)) {
             throw "No approved release notes for version $version."
           }
