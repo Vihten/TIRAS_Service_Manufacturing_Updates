@@ -216,6 +216,10 @@ jobs:
             '- Added recovery for USB flash reads that disconnect mid-transfer.'
             '- Version detection now retries the read in smaller flash blocks.'
           ) -join "`n"
+          $notesByVersion['1.0.23'] = @(
+            '- Reacquires the ESP32 bootloader after a USB read interruption.'
+            '- Prevents version detection from continuing with a broken serial stub.'
+          ) -join "`n"
           if (-not $notesByVersion.ContainsKey($version)) {
             throw "No approved release notes for version $version."
           }
