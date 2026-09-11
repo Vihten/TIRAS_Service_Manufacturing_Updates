@@ -224,6 +224,10 @@ jobs:
             '- Reads ESP32 flash version data directly through the ROM loader.'
             '- Avoids unstable flasher-stub USB transfers on ESP32-S3.'
           ) -join "`n"
+          $notesByVersion['1.0.25'] = @(
+            '- Arms a one-shot BIOS diagnostic boot before USB firmware flashing.'
+            '- Opens BIOS after every completed Fire Tester firmware update.'
+          ) -join "`n"
           if (-not $notesByVersion.ContainsKey($version)) {
             throw "No approved release notes for version $version."
           }
