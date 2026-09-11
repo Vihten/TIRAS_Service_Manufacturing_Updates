@@ -228,6 +228,10 @@ jobs:
             '- Arms a one-shot BIOS diagnostic boot before USB firmware flashing.'
             '- Opens BIOS after every completed Fire Tester firmware update.'
           ) -join "`n"
+          $notesByVersion['1.0.26'] = @(
+            '- Refreshes the firmware manifest URL to avoid stale GitHub raw-cache data.'
+            '- Detects Fire Tester firmware 0.1.375 reliably.'
+          ) -join "`n"
           if (-not $notesByVersion.ContainsKey($version)) {
             throw "No approved release notes for version $version."
           }
