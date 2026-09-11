@@ -204,6 +204,10 @@ jobs:
             '- Fixed BIOS port reset before USB firmware flashing.'
             '- Existing manufacturing dates are no longer rewritten after firmware updates.'
           ) -join "`n"
+          $notesByVersion['1.0.20'] = @(
+            '- Fixed repeated update prompts after installation.'
+            '- The installed application now reports version 1.0.20 correctly.'
+          ) -join "`n"
           if (-not $notesByVersion.ContainsKey($version)) {
             throw "No approved release notes for version $version."
           }
