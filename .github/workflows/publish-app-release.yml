@@ -208,6 +208,10 @@ jobs:
             '- Fixed repeated update prompts after installation.'
             '- The installed application now reports version 1.0.20 correctly.'
           ) -join "`n"
+          $notesByVersion['1.0.21'] = @(
+            '- Stabilized ESP32 flash reads by using 115200 baud.'
+            '- Increased the read timeout for slower and less stable USB links.'
+          ) -join "`n"
           if (-not $notesByVersion.ContainsKey($version)) {
             throw "No approved release notes for version $version."
           }
