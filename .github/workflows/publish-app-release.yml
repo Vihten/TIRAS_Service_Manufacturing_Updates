@@ -220,6 +220,10 @@ jobs:
             '- Reacquires the ESP32 bootloader after a USB read interruption.'
             '- Prevents version detection from continuing with a broken serial stub.'
           ) -join "`n"
+          $notesByVersion['1.0.24'] = @(
+            '- Reads ESP32 flash version data directly through the ROM loader.'
+            '- Avoids unstable flasher-stub USB transfers on ESP32-S3.'
+          ) -join "`n"
           if (-not $notesByVersion.ContainsKey($version)) {
             throw "No approved release notes for version $version."
           }
