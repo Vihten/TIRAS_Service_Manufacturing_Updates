@@ -212,6 +212,10 @@ jobs:
             '- Stabilized ESP32 flash reads by using 115200 baud.'
             '- Increased the read timeout for slower and less stable USB links.'
           ) -join "`n"
+          $notesByVersion['1.0.22'] = @(
+            '- Added recovery for USB flash reads that disconnect mid-transfer.'
+            '- Version detection now retries the read in smaller flash blocks.'
+          ) -join "`n"
           if (-not $notesByVersion.ContainsKey($version)) {
             throw "No approved release notes for version $version."
           }
