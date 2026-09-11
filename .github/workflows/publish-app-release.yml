@@ -236,6 +236,10 @@ jobs:
             '- Suppresses repeated background update-check error popups.'
             '- Keeps update errors visible only after a manual check.'
           ) -join "`n"
+          $notesByVersion['1.0.28'] = @(
+            '- Refreshes the Fire Tester firmware manifest cache key.'
+            '- Detects Fire Tester firmware 0.1.376.'
+          ) -join "`n"
           if (-not $notesByVersion.ContainsKey($version)) {
             throw "No approved release notes for version $version."
           }
