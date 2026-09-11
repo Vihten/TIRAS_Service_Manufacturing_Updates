@@ -1,29 +1,29 @@
 {
   "draft": false,
   "prerelease": false,
-  "tag_name": "v1.0.21",
-  "html_url": "https://github.com/Vihten/TIRAS_Service_Manufacturing_Updates/releases/tag/v1.0.21",
-  "body": "- Stabilized ESP32 flash reads by using 115200 baud.\n- Increased the read timeout for slower and less stable USB links.",
+  "tag_name": "v1.0.22",
+  "html_url": "https://github.com/Vihten/TIRAS_Service_Manufacturing_Updates/releases/tag/v1.0.22",
+  "body": "- Added recovery for USB flash reads that disconnect mid-transfer.\n- Version detection now retries the read in smaller flash blocks.",
   "assets": [
     {
-      "name": "TIRAS-Service-Manufacturing-1.0.21-payload.7z",
-      "size": 31885998,
-      "browser_download_url": "https://github.com/Vihten/TIRAS_Service_Manufacturing_Updates/releases/download/v1.0.21/TIRAS-Service-Manufacturing-1.0.21-payload.7z"
+      "name": "TIRAS-Service-Manufacturing-1.0.22-payload.7z",
+      "size": 31885975,
+      "browser_download_url": "https://github.com/Vihten/TIRAS_Service_Manufacturing_Updates/releases/download/v1.0.22/TIRAS-Service-Manufacturing-1.0.22-payload.7z"
     },
     {
-      "name": "TIRAS-Service-Manufacturing-1.0.21-Online-Setup-x64.exe",
-      "size": 2443707,
-      "browser_download_url": "https://github.com/Vihten/TIRAS_Service_Manufacturing_Updates/releases/download/v1.0.21/TIRAS-Service-Manufacturing-1.0.21-Online-Setup-x64.exe"
+      "name": "TIRAS-Service-Manufacturing-1.0.22-Online-Setup-x64.exe",
+      "size": 2443716,
+      "browser_download_url": "https://github.com/Vihten/TIRAS_Service_Manufacturing_Updates/releases/download/v1.0.22/TIRAS-Service-Manufacturing-1.0.22-Online-Setup-x64.exe"
     },
     {
-      "name": "TIRAS-Service-Manufacturing-1.0.21-windows-x64.update.json",
+      "name": "TIRAS-Service-Manufacturing-1.0.22-windows-x64.update.json",
       "size": 224,
-      "browser_download_url": "https://github.com/Vihten/TIRAS_Service_Manufacturing_Updates/releases/download/v1.0.21/TIRAS-Service-Manufacturing-1.0.21-windows-x64.update.json"
+      "browser_download_url": "https://github.com/Vihten/TIRAS_Service_Manufacturing_Updates/releases/download/v1.0.22/TIRAS-Service-Manufacturing-1.0.22-windows-x64.update.json"
     },
     {
       "name": "SHA256SUMS.txt",
       "size": 359,
-      "browser_download_url": "https://github.com/Vihten/TIRAS_Service_Manufacturing_Updates/releases/download/v1.0.21/SHA256SUMS.txt"
+      "browser_download_url": "https://github.com/Vihten/TIRAS_Service_Manufacturing_Updates/releases/download/v1.0.22/SHA256SUMS.txt"
     }
   ]
 }
