@@ -232,6 +232,10 @@ jobs:
             '- Refreshes the firmware manifest URL to avoid stale GitHub raw-cache data.'
             '- Detects Fire Tester firmware 0.1.375 reliably.'
           ) -join "`n"
+          $notesByVersion['1.0.27'] = @(
+            '- Suppresses repeated background update-check error popups.'
+            '- Keeps update errors visible only after a manual check.'
+          ) -join "`n"
           if (-not $notesByVersion.ContainsKey($version)) {
             throw "No approved release notes for version $version."
           }
