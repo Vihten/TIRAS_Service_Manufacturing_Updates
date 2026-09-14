@@ -141,6 +141,11 @@ jobs:
           }
           $baseUrl = "https://github.com/$env:GH_REPO/releases/download/$tag"
           $notesByVersion = @{
+            '1.0.30' = @(
+              '- Added in-application USB firmware updates for supported Fire Tester firmware, with acknowledged progress and SHA-256 verification.'
+              '- Preserved manufacturing data and settings during runtime USB updates; retained ROM flashing for legacy firmware and recovery.'
+              '- Manufacturing USB updates verify BIOS startup for diagnostics; phone updates keep normal startup.'
+            ) -join "`n"
             '1.0.29' = @(
               '- Додано перевірку джойстика Fire Tester після завершення оновлення.'
               '- Рух і натискання джойстика показуються наживо у застосунку.'
