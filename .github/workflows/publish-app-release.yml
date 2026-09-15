@@ -141,6 +141,12 @@ jobs:
           }
           $baseUrl = "https://github.com/$env:GH_REPO/releases/download/$tag"
           $notesByVersion = @{
+            '1.0.31' = @(
+              '- Faster runtime USB acknowledgements: first-available reads remove the 20 ms short-reply batching delay without changing framing, nonce, offset or SHA-256 validation.'
+              '- Reduced host port-enumeration overhead with a 250 ms update-session interval; retained fast cancellation and forced identity checks before and after opening the port and before BEGIN. Host identity-check time is excluded from ACK timeouts.'
+              '- Added explicit Manufacturing ENTER/PING/EXIT sessions after device selection, serialized teardown and COM ownership, and heartbeat pause during updates and joystick diagnostics. Unsupported firmware remains usable; no automatic post-update ENTER covers BIOS.'
+              '- Application tests passed. One physical runtime transfer completed through END and BIOS with firmware 0.1.383; a subsequent run was cancelled early. Repeat stability is not established.'
+            ) -join "`n"
             '1.0.30' = @(
               '- Added in-application USB firmware updates for supported Fire Tester firmware, with acknowledged progress and SHA-256 verification.'
               '- Preserved manufacturing data and settings during runtime USB updates; retained ROM flashing for legacy firmware and recovery.'
