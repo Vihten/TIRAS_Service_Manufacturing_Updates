@@ -141,6 +141,11 @@ jobs:
           }
           $baseUrl = "https://github.com/$env:GH_REPO/releases/download/$tag"
           $notesByVersion = @{
+            '1.0.32' = @(
+              '- Виправлено помилку USB-з’єднання під час визначення пристрою та перевірки після оновлення.'
+              '- Версія Fire Tester і Smoke Tester показується без очікування дати виробництва.'
+              '- Покращено відновлення зв’язку після перезапуску пристрою.'
+            ) -join "`n"
             '1.0.31' = @(
               '- Faster runtime USB acknowledgements: first-available reads remove the 20 ms short-reply batching delay without changing framing, nonce, offset or SHA-256 validation.'
               '- Reduced host port-enumeration overhead with a 250 ms update-session interval; retained fast cancellation and forced identity checks before and after opening the port and before BEGIN. Host identity-check time is excluded from ACK timeouts.'
