@@ -1,29 +1,29 @@
 {
   "draft": false,
   "prerelease": false,
-  "tag_name": "v1.0.42",
-  "html_url": "https://github.com/Vihten/TIRAS_Service_Manufacturing_Updates/releases/tag/v1.0.42",
-  "body": "- Виправлено визначення старої прошивки Smoke Tester та її оновлення через ROM-завантажувач.\n- Під час тихого USB-запиту більше не показується помилковий тайм-аут Windows overlapped operation.\n- Посилено безпечне перепідключення USB під час визначення та оновлення пристрою.\n\n[Завантажити інсталятор для Windows x64](https://github.com/Vihten/TIRAS_Service_Manufacturing_Updates/releases/download/v1.0.42/TIRAS-Service-Manufacturing-1.0.42-Online-Setup-x64.exe)\nПакет payload завантажується інсталятором автоматично; вручну завантажувати його окремо не потрібно.",
+  "tag_name": "v1.0.43",
+  "html_url": "https://github.com/Vihten/TIRAS_Service_Manufacturing_Updates/releases/tag/v1.0.43",
+  "body": "- COM-порт коректно закривається після помилки ініціалізації.\n- Усунено зависання під час очікування відповіді від послідовного порту.\n- Поліпшено скасування завантажень прошивок і перевірку відповідей сервера.\n- Посилено перевірку версії Smoke Tester після перепідключення USB COM-порту.\n- Неповні зчитування версії прошивки з flash відхиляються як недійсні.\n\n[Завантажити інсталятор для Windows x64](https://github.com/Vihten/TIRAS_Service_Manufacturing_Updates/releases/download/v1.0.43/TIRAS-Service-Manufacturing-1.0.43-Online-Setup-x64.exe)\nПакет payload завантажується інсталятором автоматично; вручну завантажувати його окремо не потрібно.",
   "assets": [
     {
-      "name": "TIRAS-Service-Manufacturing-1.0.42-payload.7z",
-      "size": 32278408,
-      "browser_download_url": "https://github.com/Vihten/TIRAS_Service_Manufacturing_Updates/releases/download/v1.0.42/TIRAS-Service-Manufacturing-1.0.42-payload.7z"
+      "name": "TIRAS-Service-Manufacturing-1.0.43-payload.7z",
+      "size": 32257395,
+      "browser_download_url": "https://github.com/Vihten/TIRAS_Service_Manufacturing_Updates/releases/download/v1.0.43/TIRAS-Service-Manufacturing-1.0.43-payload.7z"
     },
     {
-      "name": "TIRAS-Service-Manufacturing-1.0.42-Online-Setup-x64.exe",
-      "size": 2443775,
-      "browser_download_url": "https://github.com/Vihten/TIRAS_Service_Manufacturing_Updates/releases/download/v1.0.42/TIRAS-Service-Manufacturing-1.0.42-Online-Setup-x64.exe"
+      "name": "TIRAS-Service-Manufacturing-1.0.43-Online-Setup-x64.exe",
+      "size": 2443709,
+      "browser_download_url": "https://github.com/Vihten/TIRAS_Service_Manufacturing_Updates/releases/download/v1.0.43/TIRAS-Service-Manufacturing-1.0.43-Online-Setup-x64.exe"
     },
     {
-      "name": "TIRAS-Service-Manufacturing-1.0.42-windows-x64.update.json",
+      "name": "TIRAS-Service-Manufacturing-1.0.43-windows-x64.update.json",
       "size": 224,
-      "browser_download_url": "https://github.com/Vihten/TIRAS_Service_Manufacturing_Updates/releases/download/v1.0.42/TIRAS-Service-Manufacturing-1.0.42-windows-x64.update.json"
+      "browser_download_url": "https://github.com/Vihten/TIRAS_Service_Manufacturing_Updates/releases/download/v1.0.43/TIRAS-Service-Manufacturing-1.0.43-windows-x64.update.json"
     },
     {
       "name": "SHA256SUMS.txt",
       "size": 359,
-      "browser_download_url": "https://github.com/Vihten/TIRAS_Service_Manufacturing_Updates/releases/download/v1.0.42/SHA256SUMS.txt"
+      "browser_download_url": "https://github.com/Vihten/TIRAS_Service_Manufacturing_Updates/releases/download/v1.0.43/SHA256SUMS.txt"
     }
   ]
 }
