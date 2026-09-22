@@ -1,3 +1,3 @@
-9eb492ead4a5aed0174d5c25dba7a5476b6e16f780486b8b53eb31ef379e7716  TIRAS-Service-Manufacturing-1.0.45-Online-Setup-x64.exe
-b56b653a595b59806b3483aa0dc73f8a2bce04022bec69769157b3e6bc66c782  TIRAS-Service-Manufacturing-1.0.45-payload.7z
-81c73e60debaeb6bdd9e3dfc99b87bcda4de94bf4744cee45fa0c198aa6780d7  TIRAS-Service-Manufacturing-1.0.45-windows-x64.update.json
+3f1a50d95a0dc18cf700bc8d58957f1e9d08a4fdd4a9ca384c9eb37817ba00e6  TIRAS-Service-Manufacturing-1.0.45-Online-Setup-x64.exe
+5619334d64914b55622aef4e441ecc9707a57d42b13353822314cece91f20989  TIRAS-Service-Manufacturing-1.0.45-payload.7z
+8a686035a36ad2f7d2cf750bd2db7712a15f5dc4cb0e923056d92af08330679a  TIRAS-Service-Manufacturing-1.0.45-windows-x64.update.json
