@@ -5,7 +5,7 @@
 
 ## Завантаження та встановлення
 
-[**Завантажити інсталятор 1.0.50 для Windows x64 — EXE**](https://github.com/Vihten/TIRAS_Service_Manufacturing_Updates/releases/download/v1.0.50/TIRAS-Service-Manufacturing-1.0.50-Online-Setup-x64.exe)
+[**Завантажити інсталятор 1.0.51 для Windows x64 — EXE**](https://github.com/Vihten/TIRAS_Service_Manufacturing_Updates/releases/download/v1.0.51/TIRAS-Service-Manufacturing-1.0.51-Online-Setup-x64.exe)
 
 Завантажте лише цей EXE та запустіть його. Інсталятор сам завантажить решту
 файлів через інтернет, перевірить SHA-256 і встановить застосунок.
@@ -43,6 +43,10 @@ SHA-256 підтверджує відповідність файлу метад�
 Версію 1.0.3 відкликано. Не встановлюйте її; використовуйте актуальний
 інсталятор за посиланням вище. Починаючи з 1.0.4, перевірка нових версій
 читає публічний файл `latest.json` без звернення до GitHub API на вашому ПК.
+
+## Зміни у 1.0.51
+
+- Оновлення застосунку обходить застарілий кеш `latest.json` GitHub, щоб знаходити щойно опубліковану версію без очікування TTL CDN.
 
 ## Зміни у 1.0.50
 
