@@ -1,0 +1,522 @@
+[
+    {
+        "path":  "concrt140.dll",
+        "bytes":  322560,
+        "sha256":  "4f500992a53c41a0ba44a11c33c481d8763505a7453be12d85107856ab8fb332"
+    },
+    {
+        "path":  "data/app.so",
+        "bytes":  5587848,
+        "sha256":  "dc282c699451e363a8adaaaa10120de3a9139477b2dfcce90e9621dc944091a3"
+    },
+    {
+        "path":  "data/flutter_assets/AssetManifest.bin",
+        "bytes":  12981,
+        "sha256":  "9a1c6937adf8307166e4531e45f57e1be6138c0c098daa5391d45a035d355e9b"
+    },
+    {
+        "path":  "data/flutter_assets/assets/branding/Button_1_1.svg",
+        "bytes":  8503,
+        "sha256":  "50a4c3b362308e4c750dbed35a9c28a21f38091d9981205d5093a35e654159e2"
+    },
+    {
+        "path":  "data/flutter_assets/assets/branding/fire_tester_icon.svg",
+        "bytes":  3236,
+        "sha256":  "72edd12a8e6c18b7d34bcef3645bdc290260a0958e4cf0fb892d9262b5a978c7"
+    },
+    {
+        "path":  "data/flutter_assets/assets/branding/smoke_tester_icon.svg",
+        "bytes":  3864,
+        "sha256":  "fecc42e15c88723a8d047431971042826a573e0936709d2695b7872791263e0f"
+    },
+    {
+        "path":  "data/flutter_assets/assets/branding/tiras_logo_mark.svg",
+        "bytes":  487,
+        "sha256":  "04a1b0cd20bbeca9e4ee9c16caca6f95ad4133e610c8abc5875164e53488526a"
+    },
+    {
+        "path":  "data/flutter_assets/assets/branding/tiras_mark.png",
+        "bytes":  7197,
+        "sha256":  "93074d4ace9370eb6900df9119c3bbcde89c278e29f5b637130e476736b0d7a1"
+    },
+    {
+        "path":  "data/flutter_assets/assets/branding/tiras_mark.svg",
+        "bytes":  5244,
+        "sha256":  "fc4a766968633f6d4b2b8c7e25539230f9c81aa09178fbfd08e95cf298489fb8"
+    },
+    {
+        "path":  "data/flutter_assets/assets/firmware/twin_button_hw2/twin-application-1.1.83.zip",
+        "bytes":  208292,
+        "sha256":  "35cd9cd0a54c654331646268d110f06428db60011f3a4a366c2c7132f012eab2"
+    },
+    {
+        "path":  "data/flutter_assets/assets/firmware/twin_button_hw2/twin-bootloader-t25.zip",
+        "bytes":  39831,
+        "sha256":  "b4c7070d6e4a2941e8804556cfda9aeffdca75f0dac68c1c28224d450a72021b"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/adafruit-nrfutil/LICENSE.txt",
+        "bytes":  1529,
+        "sha256":  "ede258470d9885ba0b46f64347ffe17754f60f745078c9e5208ce80ee1212730"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/adafruit-nrfutil/runtime/_internal/_bz2.pyd",
+        "bytes":  86896,
+        "sha256":  "65f610646d10d5babea080e060d244b546ec52c54012e5e937dc72dcc2e2e7bc"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/adafruit-nrfutil/runtime/_internal/_ctypes.pyd",
+        "bytes":  127480,
+        "sha256":  "0e56107a891100535f2da79d85a5ae65ff1227b4765bd108f8593ac1a1110d81"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/adafruit-nrfutil/runtime/_internal/_decimal.pyd",
+        "bytes":  262000,
+        "sha256":  "aeacfead2befcc0768063a037bb64bd32109ae09cb144e5f571b04dd7965db9d"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/adafruit-nrfutil/runtime/_internal/_hashlib.pyd",
+        "bytes":  68976,
+        "sha256":  "03d233dbace599168eaffec823de6ed7beec8c2a4ebfe9b8a3d8e042a59af3ba"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/adafruit-nrfutil/runtime/_internal/_lzma.pyd",
+        "bytes":  161136,
+        "sha256":  "e3deecc1f59a3b811c608861decd84de1e8df8bafd5e2b39188861318c5a38cf"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/adafruit-nrfutil/runtime/_internal/_multiprocessing.pyd",
+        "bytes":  37368,
+        "sha256":  "2c636df7059cb0dd7e978dd735c7c5c8ddb09cf94754cf9e232296b96c5c545a"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/adafruit-nrfutil/runtime/_internal/_queue.pyd",
+        "bytes":  33784,
+        "sha256":  "48e76e0ad63f6932b4a77b5819f41c1e7595636ca8d9e824f0943a14b8bb5035"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/adafruit-nrfutil/runtime/_internal/_socket.pyd",
+        "bytes":  85496,
+        "sha256":  "3efa4636cf9e350856f6927d67a4c2564bf9bd2758a00bbf17d3aece5b60016d"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/adafruit-nrfutil/runtime/_internal/_ssl.pyd",
+        "bytes":  179432,
+        "sha256":  "0bc527d2dbc50009f43b2ed5d5982c4f63f4b647647ffa9eda612dcda80f6040"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/adafruit-nrfutil/runtime/_internal/_uuid.pyd",
+        "bytes":  27128,
+        "sha256":  "acce4f281d7ffb2dec0997527faf25b1df62ad7bd3032c568ddcf65c90edc867"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/adafruit-nrfutil/runtime/_internal/_wmi.pyd",
+        "bytes":  40304,
+        "sha256":  "a980f1e7a29842bd946863fc2693fbeb555a9dc0f9e1630dfed9a2fcdef3ece2"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/adafruit-nrfutil/runtime/_internal/api-ms-win-core-console-l1-1-0.dll",
+        "bytes":  22896,
+        "sha256":  "27954e62e12d115bb1540db4bb9de6e2c852d914aea61cba3c203595138537b2"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/adafruit-nrfutil/runtime/_internal/api-ms-win-core-datetime-l1-1-0.dll",
+        "bytes":  22896,
+        "sha256":  "6f22ff5bf9d53b7f2c3fcd553d9b8664ef5401912194b8e599e4dbd8f3105405"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/adafruit-nrfutil/runtime/_internal/api-ms-win-core-debug-l1-1-0.dll",
+        "bytes":  22896,
+        "sha256":  "c5dc0df2fcc456c2b08392ea7d539d43549d04d14ed83d69cd46f79b9e34902a"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/adafruit-nrfutil/runtime/_internal/api-ms-win-core-errorhandling-l1-1-0.dll",
+        "bytes":  22872,
+        "sha256":  "9ff8300ecf0ebd4c8130800b5b8857b6ddf21902264af42fb1ac15c794115864"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/adafruit-nrfutil/runtime/_internal/api-ms-win-core-fibers-l1-1-0.dll",
+        "bytes":  22872,
+        "sha256":  "39174763da266b4b955e27eecaef15d8283bb77f9eca94fe925d4928f37a4fa1"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/adafruit-nrfutil/runtime/_internal/api-ms-win-core-file-l1-1-0.dll",
+        "bytes":  27008,
+        "sha256":  "a9660f0e3ab6032bba0b75e1d02ce0bc57c9043bca423477843a7a3af1b1c200"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/adafruit-nrfutil/runtime/_internal/api-ms-win-core-file-l1-2-0.dll",
+        "bytes":  22896,
+        "sha256":  "445a2c24c8565834e1e41e4c617d2f9cf5def8e4a477e55e2f18583845b24c1d"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/adafruit-nrfutil/runtime/_internal/api-ms-win-core-file-l2-1-0.dll",
+        "bytes":  20960,
+        "sha256":  "f957a4c261506484b53534a9be8931c02ec1a349b3f431a858f8215cecfec3f7"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/adafruit-nrfutil/runtime/_internal/api-ms-win-core-handle-l1-1-0.dll",
+        "bytes":  22896,
+        "sha256":  "94f7611fa4568f4577deba250c1254a3c83ffc7b4fd2f00243f3bfac5a993fd8"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/adafruit-nrfutil/runtime/_internal/api-ms-win-core-heap-l1-1-0.dll",
+        "bytes":  22888,
+        "sha256":  "d655a217f4c17982b4c5ecb406290885c74afba361dd840c4245c0b28e07c192"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/adafruit-nrfutil/runtime/_internal/api-ms-win-core-interlocked-l1-1-0.dll",
+        "bytes":  22896,
+        "sha256":  "69b0f1e099dac7ffbbf1260eb4818abeacd2b9cf105b742b16e6bd5dda3bf035"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/adafruit-nrfutil/runtime/_internal/api-ms-win-core-libraryloader-l1-1-0.dll",
+        "bytes":  22872,
+        "sha256":  "87622d07bb5c9fa5ccd9f74ac70a1e2ae0cdf54462f90f365178a15a814bf3c4"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/adafruit-nrfutil/runtime/_internal/api-ms-win-core-localization-l1-2-0.dll",
+        "bytes":  22912,
+        "sha256":  "79ec668286cb900c66e1caf8a47309d986c9dc4d37a5d2dcedb2ff2a973896d9"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/adafruit-nrfutil/runtime/_internal/api-ms-win-core-memory-l1-1-0.dll",
+        "bytes":  22888,
+        "sha256":  "7f12e6eb9a992ea199bcfc755eea488a8889cd2642dba00e49fb06a14bec8408"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/adafruit-nrfutil/runtime/_internal/api-ms-win-core-namedpipe-l1-1-0.dll",
+        "bytes":  22912,
+        "sha256":  "daf13af507230a92191c348611e8b31bc384055ea5b9a6d18057646d93bfe4f7"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/adafruit-nrfutil/runtime/_internal/api-ms-win-core-processenvironment-l1-1-0.dll",
+        "bytes":  22896,
+        "sha256":  "74d809270a418e4bc1d3b94348094f00463635cedfbadd97d29686a6d037d2da"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/adafruit-nrfutil/runtime/_internal/api-ms-win-core-processthreads-l1-1-0.dll",
+        "bytes":  22896,
+        "sha256":  "6620a7962adb6a25a51e13add907189763b76d0816a356465d135eeeed1065a0"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/adafruit-nrfutil/runtime/_internal/api-ms-win-core-processthreads-l1-1-1.dll",
+        "bytes":  22872,
+        "sha256":  "82850eb2e7d100938ebd419440e4575750999bc9e349cd074019e413673d02c8"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/adafruit-nrfutil/runtime/_internal/api-ms-win-core-profile-l1-1-0.dll",
+        "bytes":  22872,
+        "sha256":  "b43119bdfc7c562bf07c26e01b7b862aa8dc9d5e795798fe93969111244ed2da"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/adafruit-nrfutil/runtime/_internal/api-ms-win-core-rtlsupport-l1-1-0.dll",
+        "bytes":  22912,
+        "sha256":  "bd0cff402e3f64baaf2bfb17d86b2c4c7d03584ea2601ca5c55de147a769a32a"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/adafruit-nrfutil/runtime/_internal/api-ms-win-core-string-l1-1-0.dll",
+        "bytes":  22896,
+        "sha256":  "1985000499475faf541b17c8acbce788bcdba6dddd3b8910b6730238f1c18862"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/adafruit-nrfutil/runtime/_internal/api-ms-win-core-synch-l1-1-0.dll",
+        "bytes":  22896,
+        "sha256":  "055544d562ca50d49443926bca396de985735f7451806ff2565486e406809d25"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/adafruit-nrfutil/runtime/_internal/api-ms-win-core-synch-l1-2-0.dll",
+        "bytes":  22912,
+        "sha256":  "0d8f2f7d031f143110c9bf5bdd4f75b24e8b41319fa2e20f78068c084e0d7603"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/adafruit-nrfutil/runtime/_internal/api-ms-win-core-sysinfo-l1-1-0.dll",
+        "bytes":  22872,
+        "sha256":  "8010d006df2d62839c933d3b5998abc7a7830ffe32ca68b17c76f3292f5e56ec"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/adafruit-nrfutil/runtime/_internal/api-ms-win-core-timezone-l1-1-0.dll",
+        "bytes":  22912,
+        "sha256":  "1789f5e749cf3a5d419e3b835bd9d78a077ee77f3e761f0fbf3609e38ace6f40"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/adafruit-nrfutil/runtime/_internal/api-ms-win-core-util-l1-1-0.dll",
+        "bytes":  22872,
+        "sha256":  "c893a59c4d1fa86fb50d486ebf3a873244b910efec5b00690d4a20afb7ce0761"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/adafruit-nrfutil/runtime/_internal/api-ms-win-crt-conio-l1-1-0.dll",
+        "bytes":  22888,
+        "sha256":  "9e466e76079b73bd9b0114004d040d193dc982e4150eee1241a902d16c2bda38"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/adafruit-nrfutil/runtime/_internal/api-ms-win-crt-convert-l1-1-0.dll",
+        "bytes":  26968,
+        "sha256":  "64c48b1280e4540c205ee7798b7da200afd95898d520ece1d56bf8a8a351fc3e"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/adafruit-nrfutil/runtime/_internal/api-ms-win-crt-environment-l1-1-0.dll",
+        "bytes":  22872,
+        "sha256":  "1a513c0601c5b628018c003d8598586d4a48fd1acf51372f6783dc23b0a27756"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/adafruit-nrfutil/runtime/_internal/api-ms-win-crt-filesystem-l1-1-0.dll",
+        "bytes":  22888,
+        "sha256":  "89bb192dd079784d9ba716a2e45a1ee6af75c67e9151fde77eb8ec32cb014182"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/adafruit-nrfutil/runtime/_internal/api-ms-win-crt-heap-l1-1-0.dll",
+        "bytes":  22896,
+        "sha256":  "e5a0c8d551e36e5fd394a45a5e9229f592b46d8e80897f25e7f0ca449abb6b00"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/adafruit-nrfutil/runtime/_internal/api-ms-win-crt-locale-l1-1-0.dll",
+        "bytes":  22912,
+        "sha256":  "f13dc1d6895f21fe2f7fd4b7ada78828b5a819013f751aa32eb1704beb4dc469"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/adafruit-nrfutil/runtime/_internal/api-ms-win-crt-math-l1-1-0.dll",
+        "bytes":  31088,
+        "sha256":  "a13aed9e8d7f4f53826cedd6acbc7b75dba51aeecd7f030b0f0d7b7c66e1a042"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/adafruit-nrfutil/runtime/_internal/api-ms-win-crt-process-l1-1-0.dll",
+        "bytes":  22912,
+        "sha256":  "90d0c8e9ea6a4e82efcdc7ba522da3989316397218f3d1320eed1bab491c0938"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/adafruit-nrfutil/runtime/_internal/api-ms-win-crt-runtime-l1-1-0.dll",
+        "bytes":  26992,
+        "sha256":  "d893a0f2c1bf6247fb94393728c6293570090028d4dd30dcea01a01b0460b0c4"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/adafruit-nrfutil/runtime/_internal/api-ms-win-crt-stdio-l1-1-0.dll",
+        "bytes":  26992,
+        "sha256":  "456adaf7d2116f3e9410a0c1acd19f54bc9decc8e75b02f82c4a7d56c980e71f"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/adafruit-nrfutil/runtime/_internal/api-ms-win-crt-string-l1-1-0.dll",
+        "bytes":  26992,
+        "sha256":  "8d360f373b21726d005df5d6e1e5d55f5aa83f6d9d6a055f4dc0331965671dba"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/adafruit-nrfutil/runtime/_internal/api-ms-win-crt-time-l1-1-0.dll",
+        "bytes":  22872,
+        "sha256":  "c674ee45208477eec3669db64abb586df50d4fa38aa5b47ed2012d4bc5d9ec4e"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/adafruit-nrfutil/runtime/_internal/api-ms-win-crt-utility-l1-1-0.dll",
+        "bytes":  22912,
+        "sha256":  "7c31b21496d4783456d9093d0742e1727fe77e1ccb27d717c327039859561438"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/adafruit-nrfutil/runtime/_internal/base_library.zip",
+        "bytes":  1333717,
+        "sha256":  "9fee892c3843526a482891b0329abcd912434769e9ad3f9ee071e57d58bdfe01"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/adafruit-nrfutil/runtime/_internal/libcrypto-3.dll",
+        "bytes":  5231472,
+        "sha256":  "ccfffddcd3defb8d899026298af9af43bc186130f8483d77e97c93233d5f27d7"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/adafruit-nrfutil/runtime/_internal/libffi-8.dll",
+        "bytes":  39696,
+        "sha256":  "eff52743773eb550fcc6ce3efc37c85724502233b6b002a35496d828bd7b280a"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/adafruit-nrfutil/runtime/_internal/libssl-3.dll",
+        "bytes":  794992,
+        "sha256":  "007142039f04d04e0ed607bda53de095e5bc6a8a10d26ecedde94ea7d2d7eefe"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/adafruit-nrfutil/runtime/_internal/pyexpat.pyd",
+        "bytes":  205304,
+        "sha256":  "d615e193d1affcdbfe504e90d3621cbdcff94bf72b79d899126534507fd6d27a"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/adafruit-nrfutil/runtime/_internal/python312.dll",
+        "bytes":  6945272,
+        "sha256":  "9a0e3435aaa680d868150f87ab3e388ad2eebc22f87e036155c7b4eda8cd2120"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/adafruit-nrfutil/runtime/_internal/select.pyd",
+        "bytes":  33136,
+        "sha256":  "d4d7181b11db0bd22a6cd5cda6f8583d1f5c77615fd0a6ca33350619d6e0438a"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/adafruit-nrfutil/runtime/_internal/setuptools/_vendor/importlib_metadata-8.7.1.dist-info/INSTALLER",
+        "bytes":  2,
+        "sha256":  "e6184ce10e266134fdcfa401e8f1a95005bcd4f18d16b62b757323e2833fe9a9"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/adafruit-nrfutil/runtime/_internal/setuptools/_vendor/importlib_metadata-8.7.1.dist-info/licenses/LICENSE",
+        "bytes":  10351,
+        "sha256":  "a1e70008f96616bb977c5953265581a9ee4fe38735b30614b49939a73a11e4a7"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/adafruit-nrfutil/runtime/_internal/setuptools/_vendor/importlib_metadata-8.7.1.dist-info/METADATA",
+        "bytes":  4803,
+        "sha256":  "249a06ea2ca39310a0af637df196081af1f23f49606e8707cf0576acf3df8d90"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/adafruit-nrfutil/runtime/_internal/setuptools/_vendor/importlib_metadata-8.7.1.dist-info/RECORD",
+        "bytes":  1889,
+        "sha256":  "f5ea93479bba85e0b146d9a99dd0920a948e671f14f5ed83341ccb7231efea1c"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/adafruit-nrfutil/runtime/_internal/setuptools/_vendor/importlib_metadata-8.7.1.dist-info/REQUESTED",
+        "bytes":  0,
+        "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/adafruit-nrfutil/runtime/_internal/setuptools/_vendor/importlib_metadata-8.7.1.dist-info/top_level.txt",
+        "bytes":  20,
+        "sha256":  "1e153025950bda93d40e1184b39518291513fc81fd79b147bd5d41474a120921"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/adafruit-nrfutil/runtime/_internal/setuptools/_vendor/importlib_metadata-8.7.1.dist-info/WHEEL",
+        "bytes":  96,
+        "sha256":  "d4ffe7fd41fef915db68f1e5c2bc5444801dae4b86170dc9fca1fbc9e50aa5db"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/adafruit-nrfutil/runtime/_internal/setuptools/_vendor/jaraco/text/Lorem%20ipsum.txt",
+        "bytes":  1337,
+        "sha256":  "4939c083cb16a3e6021cda1520fa3293a4f0a1775b40974972e80e711a750f81"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/adafruit-nrfutil/runtime/_internal/ucrtbase.dll",
+        "bytes":  1122768,
+        "sha256":  "c04daeba7e7c4b711d33993ab4c51a2e087f98f4211aea0dcb3a216656ba0ab7"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/adafruit-nrfutil/runtime/_internal/unicodedata.pyd",
+        "bytes":  1140592,
+        "sha256":  "208ee1cd3cbad0828433ca7246b05be2b1ff5569983d27d296c0b38888585488"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/adafruit-nrfutil/runtime/_internal/VCRUNTIME140.dll",
+        "bytes":  120400,
+        "sha256":  "052ad6a20d375957e82aa6a3c441ea548d89be0981516ca7eb306e063d5027f4"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/adafruit-nrfutil/runtime/_internal/VCRUNTIME140_1.dll",
+        "bytes":  49776,
+        "sha256":  "6a99bc0128e0c7d6cbbf615fcc26909565e17d4ca3451b97f8987f9c6acbc6c8"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/adafruit-nrfutil/runtime/adafruit-nrfutil.exe",
+        "bytes":  4124727,
+        "sha256":  "2bd64db9ad27e64c9cea1ec7204cb164034f5981febd83d9a84a2297612434dc"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/esptool/esptool.exe",
+        "bytes":  14323136,
+        "sha256":  "a939e28fe2fbb53e65e46f0246a4d71b9fd6c052ef0e046182df4a4fe8bec946"
+    },
+    {
+        "path":  "data/flutter_assets/assets/tools/esptool/LICENSE.esptool",
+        "bytes":  18431,
+        "sha256":  "189b1af95d661151e054cea10c91b3d754e4de4d3fecfb074c1fb29476f7167b"
+    },
+    {
+        "path":  "data/flutter_assets/FontManifest.json",
+        "bytes":  82,
+        "sha256":  "28b1eb2b3d2e1ad60b8c8b0f9100b1ccbf492f7fa97f5bebb51ea97e73926e7d"
+    },
+    {
+        "path":  "data/flutter_assets/fonts/MaterialIcons-Regular.otf",
+        "bytes":  7460,
+        "sha256":  "5894b4d1487e479984ea4dfb0645d4beebfad5039d34bfb4011525019eacb881"
+    },
+    {
+        "path":  "data/flutter_assets/NativeAssetsManifest.json",
+        "bytes":  45,
+        "sha256":  "9548a31e4a048135c1d94f919328bfb62ae2c7bb3cab96557c7941daa97776cb"
+    },
+    {
+        "path":  "data/flutter_assets/NOTICES.Z",
+        "bytes":  99649,
+        "sha256":  "5eefcd703ac057ce4476da4e3064c39f75175db18a35c56e6f1458d5fd65b98d"
+    },
+    {
+        "path":  "data/flutter_assets/shaders/ink_sparkle.frag",
+        "bytes":  21856,
+        "sha256":  "1fe8436a743884cb65078fe8c7b38e18f5365f2a2961270916f426fd13c604af"
+    },
+    {
+        "path":  "data/flutter_assets/shaders/stretch_effect.frag",
+        "bytes":  17616,
+        "sha256":  "bc7599dbbbaab310efe41520574138d21fb18a88c8fe4495ed79315309336f6f"
+    },
+    {
+        "path":  "data/icudtl.dat",
+        "bytes":  864880,
+        "sha256":  "325a86063d26334c2eabe1743cea073b612540fbf3d8fc2ef0b5708e3763a8c7"
+    },
+    {
+        "path":  "flutter_windows.dll",
+        "bytes":  21274112,
+        "sha256":  "58aacd64492877c08a4b9566d2d9bd53cd475d31eb8d42b34f2a035e64a326e2"
+    },
+    {
+        "path":  "msvcp140.dll",
+        "bytes":  575056,
+        "sha256":  "a4c2229bdc2a2a630acdc095b4d86008e5c3e3bc7773174354f3da4f5beb9cde"
+    },
+    {
+        "path":  "msvcp140_1.dll",
+        "bytes":  35808,
+        "sha256":  "91cd05c16c61c39788c47434602a59c17f5b08dbb3eee04ce85f8d5b70e8e604"
+    },
+    {
+        "path":  "msvcp140_2.dll",
+        "bytes":  268880,
+        "sha256":  "713f17b253d802d283d306ce75647e37d83a546aeb1a881e5d9e529e856c007e"
+    },
+    {
+        "path":  "msvcp140_atomic_wait.dll",
+        "bytes":  50664,
+        "sha256":  "aede4ec454a82f146eb4a721e616e2086870107d88aabc6b0bd1eea0a505d935"
+    },
+    {
+        "path":  "msvcp140_codecvt_ids.dll",
+        "bytes":  31744,
+        "sha256":  "d52d349fbbe6abc61965c07e04cc82d8ee0cea1de7faf90a838964e3f40acedd"
+    },
+    {
+        "path":  "native_assets.json",
+        "bytes":  45,
+        "sha256":  "9548a31e4a048135c1d94f919328bfb62ae2c7bb3cab96557c7941daa97776cb"
+    },
+    {
+        "path":  "THIRD-PARTY-NOTICES.txt",
+        "bytes":  364,
+        "sha256":  "f1d3cc9676216f07670ad8782fedadbb6750e99c492d44e89fc4726f4daf5e30"
+    },
+    {
+        "path":  "TIRAS_Service_Manufacturing.exe",
+        "bytes":  113152,
+        "sha256":  "06bbd1ece4a30c6cfbea749b1c97bc60006c2ec483850d3c930ff82a63cd3a74"
+    },
+    {
+        "path":  "vccorlib140.dll",
+        "bytes":  351824,
+        "sha256":  "086fab8accce357da499e6024e4290aa89dfc219867c90d90c62f8247591b95b"
+    },
+    {
+        "path":  "vcruntime140.dll",
+        "bytes":  119888,
+        "sha256":  "02c6aa0e6e624411a9f19b0360a7865ab15908e26024510e5c38a9c08362c35a"
+    },
+    {
+        "path":  "vcruntime140_1.dll",
+        "bytes":  49640,
+        "sha256":  "7dd9aa02e271c68ca6d5f18d651d23a15d7259715af43326578f7dde27f37637"
+    },
+    {
+        "path":  "vcruntime140_threads.dll",
+        "bytes":  38504,
+        "sha256":  "75f3540ebe0876c1b173821d2669987c088c3f6db985305d160460f476536a89"
+    }
+]

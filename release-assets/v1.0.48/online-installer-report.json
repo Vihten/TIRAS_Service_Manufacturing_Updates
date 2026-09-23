@@ -1,0 +1,13 @@
+{
+    "version":  "1.0.48",
+    "installer":  "F:\\Worktrees\\manufacturing-fire-diagnostics\\build\\online-installer\\20260923-103806-9532009\\TIRAS-Service-Manufacturing-1.0.48-Online-Setup-x64.exe",
+    "bytes":  2443774,
+    "sha256":  "c16f62c8027fdcd735fd00626a624abec4a7fd3c576b7adc5c06043ca9b88ddf",
+    "payload":  "F:\\Worktrees\\manufacturing-fire-diagnostics\\build\\online-installer\\20260923-103806-9532009\\TIRAS-Service-Manufacturing-1.0.48-payload.7z",
+    "payloadUrl":  "https://github.com/Vihten/TIRAS_Service_Manufacturing_Updates/releases/download/v1.0.48/TIRAS-Service-Manufacturing-1.0.48-payload.7z",
+    "payloadBytes":  32300071,
+    "payloadUnpackedBytes":  67654310,
+    "payloadSha256":  "966a67986becb0122021825a9423b58b466eb94f555f1556eb0a1c7ebdbb86cf",
+    "manifest":  "F:\\Worktrees\\manufacturing-fire-diagnostics\\build\\online-installer\\20260923-103806-9532009\\payload-manifest.json",
+    "verifiedFiles":  104
+}
