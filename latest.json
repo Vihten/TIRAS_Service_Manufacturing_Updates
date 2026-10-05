@@ -1,29 +1,29 @@
 {
   "draft": false,
   "prerelease": false,
-  "tag_name": "v1.0.52",
-  "html_url": "https://github.com/Vihten/TIRAS_Service_Manufacturing_Updates/releases/tag/v1.0.52",
-  "body": "- Оновлено діагностику Fire Tester: показуються всі 13 перевірок у читабельному вигляді.\n- Куля етапу діагностики доступна в режимі розробника вже під час пошуку пристрою.\n\n[Завантажити інсталятор для Windows x64](https://github.com/Vihten/TIRAS_Service_Manufacturing_Updates/releases/download/v1.0.52/TIRAS-Service-Manufacturing-1.0.52-Online-Setup-x64.exe)\nПакет payload завантажується інсталятором автоматично; вручну завантажувати його окремо не потрібно.",
+  "tag_name": "v1.0.53",
+  "html_url": "https://github.com/Vihten/TIRAS_Service_Manufacturing_Updates/releases/tag/v1.0.53",
+  "body": "- Виправлено обрізання індикатора джойстика у вікні діагностики Fire Tester.\n- Заголовок і блок чипсета коректно вміщуються в діагностичній панелі.\n\n[Завантажити інсталятор для Windows x64](https://github.com/Vihten/TIRAS_Service_Manufacturing_Updates/releases/download/v1.0.53/TIRAS-Service-Manufacturing-1.0.53-Online-Setup-x64.exe)\nПакет payload завантажується інсталятором автоматично.",
   "assets": [
     {
-      "name": "TIRAS-Service-Manufacturing-1.0.52-payload.7z",
-      "size": 32097117,
-      "browser_download_url": "https://github.com/Vihten/TIRAS_Service_Manufacturing_Updates/releases/download/v1.0.52/TIRAS-Service-Manufacturing-1.0.52-payload.7z"
+      "name": "TIRAS-Service-Manufacturing-1.0.53-payload.7z",
+      "size": 32302700,
+      "browser_download_url": "https://github.com/Vihten/TIRAS_Service_Manufacturing_Updates/releases/download/v1.0.53/TIRAS-Service-Manufacturing-1.0.53-payload.7z"
     },
     {
-      "name": "TIRAS-Service-Manufacturing-1.0.52-Online-Setup-x64.exe",
-      "size": 2443763,
-      "browser_download_url": "https://github.com/Vihten/TIRAS_Service_Manufacturing_Updates/releases/download/v1.0.52/TIRAS-Service-Manufacturing-1.0.52-Online-Setup-x64.exe"
+      "name": "TIRAS-Service-Manufacturing-1.0.53-Online-Setup-x64.exe",
+      "size": 2443701,
+      "browser_download_url": "https://github.com/Vihten/TIRAS_Service_Manufacturing_Updates/releases/download/v1.0.53/TIRAS-Service-Manufacturing-1.0.53-Online-Setup-x64.exe"
     },
     {
-      "name": "TIRAS-Service-Manufacturing-1.0.52-windows-x64.update.json",
-      "size": 223,
-      "browser_download_url": "https://github.com/Vihten/TIRAS_Service_Manufacturing_Updates/releases/download/v1.0.52/TIRAS-Service-Manufacturing-1.0.52-windows-x64.update.json"
+      "name": "TIRAS-Service-Manufacturing-1.0.53-windows-x64.update.json",
+      "size": 267,
+      "browser_download_url": "https://github.com/Vihten/TIRAS_Service_Manufacturing_Updates/releases/download/v1.0.53/TIRAS-Service-Manufacturing-1.0.53-windows-x64.update.json"
     },
     {
       "name": "SHA256SUMS.txt",
       "size": 359,
-      "browser_download_url": "https://github.com/Vihten/TIRAS_Service_Manufacturing_Updates/releases/download/v1.0.52/SHA256SUMS.txt"
+      "browser_download_url": "https://github.com/Vihten/TIRAS_Service_Manufacturing_Updates/releases/download/v1.0.53/SHA256SUMS.txt"
     }
   ]
 }
