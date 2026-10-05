@@ -1,0 +1,3 @@
+6a7d144ebf3ae208721e7160f0d92c1e68f78a8fe5d3bf7874cdd1e29158c642  TIRAS-Service-Manufacturing-1.0.54-Online-Setup-x64.exe
+304fd1f141748da8ea07f491d78d7c2b7f949a1b8e35332663eb3166358e9885  TIRAS-Service-Manufacturing-1.0.54-payload.7z
+2311cfc92f4a9ece08ab6b751826d35542c15d3ce151611bf8a3625d07d6257f  TIRAS-Service-Manufacturing-1.0.54-windows-x64.update.json
