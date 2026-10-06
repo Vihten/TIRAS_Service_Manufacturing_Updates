@@ -53,8 +53,38 @@ jobs:
             }
             return [version]$ReleaseTag.Substring(1)
           }
+          function Assert-ReleaseNotes {
+            param([AllowNull()][string]$Notes)
+            if ([string]::IsNullOrWhiteSpace($Notes) -or $Notes -notmatch '[\p{L}]') {
+              throw 'Release notes must contain nonblank user-facing text with letters.'
+            }
+            if ($Notes -match '\?{3,}' -or $Notes.Contains([char]0xFFFD)) {
+              throw 'Release notes contain question-mark corruption or a replacement character.'
+            }
+            if ($Notes -match '(?i)(\u0420[\u0400-\u04ff]\u0421[\u0400-\u04ff]|\u0420[\u0400-\u04ff]\u0420[\u0400-\u04ff]|Ð[\x80-\xBF]|Ñ[\x80-\xBF]|Ã[\x80-\xBF]|â(?:€|€™|€“|€”))') {
+              throw 'Release notes contain likely UTF-8 mojibake.'
+            }
+            if ($Notes -match '(?im)^\s*\[[^\]]+\]\(https?://[^)]+\)|https?://\S+') {
+              throw 'Release notes must not contain Markdown links or bare URLs.'
+            }
+          }
+          function Write-ReleaseNotesFile {
+            param([string]$Path, [string]$Notes)
+            Assert-ReleaseNotes $Notes
+            $utf8 = [Text.UTF8Encoding]::new($false, $true)
+            [IO.File]::WriteAllText($Path, $Notes, $utf8)
+            $roundTrip = [IO.File]::ReadAllText($Path, $utf8)
+            if ($roundTrip -cne $Notes) { throw 'Release notes UTF-8 round-trip changed the selected text.' }
+          }
+          function Test-PublicTrackedPath {
+            param([string]$Path)
+            if ($Path -ceq 'README.md' -or $Path -ceq 'latest.json' -or
+                $Path -ceq '.github/workflows/publish-app-release.yml' -or
+                $Path -ceq 'tool/test_release_notes.ps1') { return $true }
+            return $Path -cmatch '^release-assets/(v(?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*))/(?:SHA256SUMS\.txt|TIRAS-Service-Manufacturing-[0-9]+\.[0-9]+\.[0-9]+-(?:Online-Setup-x64\.exe|payload\.7z|windows-x64\.update\.json))$'
+          }
           function Assert-PublicFeed {
-            param($Feed)
+            param($Feed, [switch]$ValidateNotes)
             $feedVersion = Get-StableVersion $Feed.tag_name
             $feedTag = $Feed.tag_name
             $feedPrefix = "TIRAS-Service-Manufacturing-$($feedTag.Substring(1))"
@@ -64,6 +94,7 @@ jobs:
                 $Feed.html_url -cne "https://github.com/$env:GH_REPO/releases/tag/$feedTag" -or
                 $Feed.body -isnot [string] -or [string]::IsNullOrWhiteSpace($Feed.body) -or
                 @($Feed.assets).Count -ne 4) { throw 'Invalid public update feed.' }
+            if ($ValidateNotes) { Assert-ReleaseNotes $Feed.body }
             $seenNames = [Collections.Generic.HashSet[string]]::new([StringComparer]::Ordinal)
             foreach ($feedAsset in $Feed.assets) {
               if ($feedAsset.name -cnotin $feedNames -or -not $seenNames.Add($feedAsset.name) -or
@@ -103,8 +134,7 @@ jobs:
           $tracked = @(& git ls-files)
           if ($LASTEXITCODE -ne 0) { throw 'Cannot inspect public repository files.' }
           foreach ($path in $tracked) {
-            if ($path -ceq 'README.md' -or $path -ceq 'latest.json' -or $path -ceq '.github/workflows/publish-app-release.yml') { continue }
-            if ($path -cnotmatch '^release-assets/(v(?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*))/(?:SHA256SUMS\.txt|TIRAS-Service-Manufacturing-[0-9]+\.[0-9]+\.[0-9]+-(?:Online-Setup-x64\.exe|payload\.7z|windows-x64\.update\.json))$') {
+            if (-not (Test-PublicTrackedPath $path)) {
               throw "Unexpected public file: $path"
             }
           }
@@ -142,119 +172,87 @@ jobs:
           $baseUrl = "https://github.com/$env:GH_REPO/releases/download/$tag"
           $notesByVersion = @{
             '1.0.59' = @(
-              '- ?????????? ????????? ????? ????????????, ???? ????????? ???????? ?????.'
-              '- ??????????? ???????????? ?????? ?????? ????????? ??? ?????? ?????????.'
-              '- ????????? ?? ???????? ??????????? ??????????? ? ????? ?????.'
+              '- Порівняння версій видно перед автоматичним оновленням.'
+              '- Beta-прошивки доступні лише після ввімкнення відповідної опції в налаштуваннях.'
+              '- Після запису перевіряється версія прошивки на тому самому пристрої.'
               ''
-              '[??????????? ?????????? ??? Windows x64](https://github.com/Vihten/TIRAS_Service_Manufacturing_Updates/releases/download/v1.0.59/TIRAS-Service-Manufacturing-1.0.59-Online-Setup-x64.exe)'
-              '????? payload ?????????????? ???????????? ???????????.'
             ) -join "`n"
             '1.0.58' = @(
               '- ??????????? ????????? ???????? ?????? ?? ?????? ??????????? ???????????? ??????.'
               '- ????????? ????????? ?????? ???????? ?? ???????????? ?????? ?????????.'
               '- ????????? ??????????? ??????? ??? ??? ????????? ????????? ?????????.'
               ''
-              '[??????????? ?????????? ??? Windows x64](https://github.com/Vihten/TIRAS_Service_Manufacturing_Updates/releases/download/v1.0.58/TIRAS-Service-Manufacturing-1.0.58-Online-Setup-x64.exe)'
-              '????? payload ?????????????? ???????????? ???????????.'
             ) -join "`n"
             '1.0.57' = @(
               '- Додано збережений перемикач «Прошивати Beta» в налаштуваннях.'
               '- Підтримано бета-версії Fire Tester та Smoke Tester із суфіксом b.'
               '- Вибір прошивки враховує канал, порядок версій і перехід зі старої нумерації.'
               ''
-              '[Завантажити інсталятор для Windows x64](https://github.com/Vihten/TIRAS_Service_Manufacturing_Updates/releases/download/v1.0.57/TIRAS-Service-Manufacturing-1.0.57-Online-Setup-x64.exe)'
-              'Пакет payload завантажується інсталятором автоматично.'
             ) -join "`n"
             '1.0.56' = @(
               '- Виправлено визначення Smoke Tester після тайм-ауту запису USB-команди.'
               '- Резервний шлях через завантажувач перевіряє незмінну фізичну USB-ідентичність.'
               ''
-              '[Завантажити інсталятор для Windows x64](https://github.com/Vihten/TIRAS_Service_Manufacturing_Updates/releases/download/v1.0.56/TIRAS-Service-Manufacturing-1.0.56-Online-Setup-x64.exe)'
-              'Пакет payload завантажується інсталятором автоматично.'
             ) -join "`n"
             '1.0.55' = @(
               '- Діагностика показує послідовні блоки зі станами в межах вікна, без прокручування.'
               '- Доступні виміряні струми, еталонні значення та допуски для окремих блоків.'
               '- Виправлено обробку відповідей USB і уточнено причини відмови запуску тесту.'
               ''
-              '[Завантажити інсталятор для Windows x64](https://github.com/Vihten/TIRAS_Service_Manufacturing_Updates/releases/download/v1.0.55/TIRAS-Service-Manufacturing-1.0.55-Online-Setup-x64.exe)'
-              'Пакет payload завантажується інсталятором автоматично.'
             ) -join "`n"
             '1.0.54' = @(
               '- Діагностика Fire Tester перевіряє всі 16 компонентів і привязує вимірювання до конкретного запуску.'
               '- Додано підтвердження видимих і звукових перевірок оператором та збереження підсумку у звіті.'
               '- Дані контролера заряду відображаються з урахуванням їх доступності; неповний тест не позначається успішним.'
               ''
-              '[Завантажити інсталятор для Windows x64](https://github.com/Vihten/TIRAS_Service_Manufacturing_Updates/releases/download/v1.0.54/TIRAS-Service-Manufacturing-1.0.54-Online-Setup-x64.exe)'
-              'Пакет payload завантажується інсталятором автоматично.'
             ) -join "`n"
             '1.0.53' = @(
               '- Виправлено обрізання індикатора джойстика у вікні діагностики Fire Tester.'
               '- Заголовок і блок чипсета коректно вміщуються в діагностичній панелі.'
               ''
-              '[Завантажити інсталятор для Windows x64](https://github.com/Vihten/TIRAS_Service_Manufacturing_Updates/releases/download/v1.0.53/TIRAS-Service-Manufacturing-1.0.53-Online-Setup-x64.exe)'
-              'Пакет payload завантажується інсталятором автоматично.'
             ) -join "`n"
             '1.0.52' = @(
               '- Оновлено діагностику Fire Tester: показуються всі 13 перевірок у читабельному вигляді.'
               '- Куля етапу діагностики доступна в режимі розробника вже під час пошуку пристрою.'
               ''
-              '[Завантажити інсталятор для Windows x64](https://github.com/Vihten/TIRAS_Service_Manufacturing_Updates/releases/download/v1.0.52/TIRAS-Service-Manufacturing-1.0.52-Online-Setup-x64.exe)'
-              'Пакет payload завантажується інсталятором автоматично; вручну завантажувати його окремо не потрібно.'
             ) -join "`n"
             '1.0.51' = @(
               "- Оновлення застосунку обходить застарілий кеш latest.json GitHub, щоб знаходити щойно опубліковану версію без очікування TTL CDN."
               ""
-              "[Завантажити інсталятор для Windows x64](https://github.com/Vihten/TIRAS_Service_Manufacturing_Updates/releases/download/v1.0.51/TIRAS-Service-Manufacturing-1.0.51-Online-Setup-x64.exe)"
-              "Пакет payload завантажується інсталятором автоматично; вручну завантажувати його окремо не потрібно."
             ) -join "`n"
             '1.0.50' = @(
               "- Перероблено попередній перегляд діагностики Fire Tester: 12 функціональних перевірок показано компактною матрицею з окремими статусами без прокрутки."
               ""
-              "[Завантажити інсталятор для Windows x64](https://github.com/Vihten/TIRAS_Service_Manufacturing_Updates/releases/download/v1.0.50/TIRAS-Service-Manufacturing-1.0.50-Online-Setup-x64.exe)"
-              "Пакет payload завантажується інсталятором автоматично; вручну завантажувати його окремо не потрібно."
             ) -join "`n"
             '1.0.49' = @(
               "- Виправлено попередній перегляд діагностики Fire Tester у режимі розробника: демонстраційні результати показуються лише на етапі діагностики та коректно зникають після виходу з режиму."
               ""
-              "[Завантажити інсталятор для Windows x64](https://github.com/Vihten/TIRAS_Service_Manufacturing_Updates/releases/download/v1.0.49/TIRAS-Service-Manufacturing-1.0.49-Online-Setup-x64.exe)"
-              "Пакет payload завантажується інсталятором автоматично; вручну завантажувати його окремо не потрібно."
             ) -join "`n"
             '1.0.48' = @(
               "- Інтегровано компактну автоматичну діагностику Fire Tester після успішної перевірки джойстика: функціональна перевірка та тест живлення виконуються послідовно."
               "- Для кожного пункту показується окремий статус, а перебіг отримує додатковий крок для повного циклу діагностики."
               ""
-              "[Завантажити інсталятор для Windows x64](https://github.com/Vihten/TIRAS_Service_Manufacturing_Updates/releases/download/v1.0.48/TIRAS-Service-Manufacturing-1.0.48-Online-Setup-x64.exe)"
-              "Пакет payload завантажується інсталятором автоматично; вручну завантажувати його окремо не потрібно."
             ) -join "`n"
             '1.0.47' = @(
               "- Додано попередній перегляд діагностики Fire Tester у режимі розробника: джойстик, виконання, результати та помилки з демонстраційними даними без підключеного пристрою."
               ""
-              "[Завантажити інсталятор для Windows x64](https://github.com/Vihten/TIRAS_Service_Manufacturing_Updates/releases/download/v1.0.47/TIRAS-Service-Manufacturing-1.0.47-Online-Setup-x64.exe)"
-              "Пакет payload завантажується інсталятором автоматично; вручну завантажувати його окремо не потрібно."
             ) -join "`n"
             '1.0.46' = @(
               "- Уніфіковано оформлення перевірок джойстика, датчиків і живлення; додано зрозумілі підсумки та розкривні деталі."
               "- Виправлено часові межі обміну через USB під час тесту живлення."
               "- Збережено отримані результати під час оновлення даних датчиків; виправлено обробку повторних спроб і закриття."
               ""
-              "[Завантажити інсталятор для Windows x64](https://github.com/Vihten/TIRAS_Service_Manufacturing_Updates/releases/download/v1.0.46/TIRAS-Service-Manufacturing-1.0.46-Online-Setup-x64.exe)"
-              "Пакет payload завантажується інсталятором автоматично; вручну завантажувати його окремо не потрібно."
             ) -join "`n"
             '1.0.45' = @(
               "- Після успішної перевірки джойстика автоматично запускається перевірка датчиків, а потім контрольований тест живлення; скасування доступне."
               "- Невизначені результати та відсутність калібрувального еталона відображаються окремо від несправностей."
               ""
-              "[Завантажити інсталятор для Windows x64](https://github.com/Vihten/TIRAS_Service_Manufacturing_Updates/releases/download/v1.0.45/TIRAS-Service-Manufacturing-1.0.45-Online-Setup-x64.exe)"
-              "Пакет payload завантажується інсталятором автоматично; вручну завантажувати його окремо не потрібно."
             ) -join "`n"
             '1.0.44' = @(
               "- Виправлено штатне завершення застосунку після запуску інсталятора з кнопки «Оновити»."
                 "- Інсталятор очікує до пяти секунд на завершення застосунку перед заміною файлів."
                 "- Повторний запуск застосунку з тієї самої папки активує наявне вікно замість відкриття другої копії."
               ""
-              "[Завантажити інсталятор для Windows x64](https://github.com/Vihten/TIRAS_Service_Manufacturing_Updates/releases/download/v1.0.44/TIRAS-Service-Manufacturing-1.0.44-Online-Setup-x64.exe)"
-              "Пакет payload завантажується інсталятором автоматично; вручну завантажувати його окремо не потрібно."
             ) -join "`n"
             '1.0.43' = @(
               "- COM-порт коректно закривається після помилки ініціалізації."
@@ -263,16 +261,12 @@ jobs:
               "- Посилено перевірку версії Smoke Tester після перепідключення USB COM-порту."
               "- Неповні зчитування версії прошивки з flash відхиляються як недійсні."
               ""
-              "[Завантажити інсталятор для Windows x64](https://github.com/Vihten/TIRAS_Service_Manufacturing_Updates/releases/download/v1.0.43/TIRAS-Service-Manufacturing-1.0.43-Online-Setup-x64.exe)"
-              "Пакет payload завантажується інсталятором автоматично; вручну завантажувати його окремо не потрібно."
             ) -join "`n"
             '1.0.42' = @(
               "- Виправлено визначення старої прошивки Smoke Tester та її оновлення через ROM-завантажувач."
               "- Під час тихого USB-запиту більше не показується помилковий тайм-аут Windows overlapped operation."
               "- Посилено безпечне перепідключення USB під час визначення та оновлення пристрою."
               ""
-              "[Завантажити інсталятор для Windows x64](https://github.com/Vihten/TIRAS_Service_Manufacturing_Updates/releases/download/v1.0.42/TIRAS-Service-Manufacturing-1.0.42-Online-Setup-x64.exe)"
-              "Пакет payload завантажується інсталятором автоматично; вручну завантажувати його окремо не потрібно."
             ) -join "`n"
             '1.0.41' = @(
               "- Покращено визначення встановленої версії Twin Button."
@@ -437,7 +431,7 @@ jobs:
           }
           $notes = $notesByVersion[$version]
           $notesPath = Join-Path $env:RUNNER_TEMP "release-notes-$tag.md"
-          [IO.File]::WriteAllText($notesPath, $notes)
+          Write-ReleaseNotesFile $notesPath $notes
           $releases = (Invoke-Gh api --paginate --slurp 'repos/{owner}/{repo}/releases?per_page=100' | ConvertFrom-Json)
           $existing = @($releases | ForEach-Object { $_ } | Where-Object { $_.tag_name -ceq $tag })
           if ($existing.Count -gt 1) { throw 'Duplicate release tag.' }
@@ -517,7 +511,7 @@ jobs:
             })
           }
           $feedJson = $newFeed | ConvertTo-Json -Depth 5
-          Assert-PublicFeed ($feedJson | ConvertFrom-Json)
+          Assert-PublicFeed ($feedJson | ConvertFrom-Json) -ValidateNotes
           $feedUpdate = [ordered]@{
             message = "Publish verified application feed $tag"
             branch = 'main'
@@ -534,5 +528,5 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw 'Anonymous update feed download failed.' }
           $publishedFeedJson = [IO.File]::ReadAllText($publicFeedPath)
           if ($publishedFeedJson -cne $feedJson) { throw 'Published update feed differs from the verified content.' }
-          Assert-PublicFeed ($publishedFeedJson | ConvertFrom-Json)
+          Assert-PublicFeed ($publishedFeedJson | ConvertFrom-Json) -ValidateNotes
           "Published and verified $tag with $($assetNames.Count) public assets and the public update feed."
