@@ -141,6 +141,14 @@ jobs:
           }
           $baseUrl = "https://github.com/$env:GH_REPO/releases/download/$tag"
           $notesByVersion = @{
+            '1.0.57' = @(
+              '- Додано збережений перемикач «Прошивати Beta» в налаштуваннях.'
+              '- Підтримано бета-версії Fire Tester та Smoke Tester із суфіксом b.'
+              '- Вибір прошивки враховує канал, порядок версій і перехід зі старої нумерації.'
+              ''
+              '[Завантажити інсталятор для Windows x64](https://github.com/Vihten/TIRAS_Service_Manufacturing_Updates/releases/download/v1.0.57/TIRAS-Service-Manufacturing-1.0.57-Online-Setup-x64.exe)'
+              'Пакет payload завантажується інсталятором автоматично.'
+            ) -join "`n"
             '1.0.56' = @(
               '- Виправлено визначення Smoke Tester після тайм-ауту запису USB-команди.'
               '- Резервний шлях через завантажувач перевіряє незмінну фізичну USB-ідентичність.'
