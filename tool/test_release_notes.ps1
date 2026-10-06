@@ -17,6 +17,20 @@ $definitions = @($ast.FindAll({ param($node) $node -is [Management.Automation.La
 if ($definitions.Count -ne 3) { throw 'Could not extract the release notes and public path validation functions.' }
 foreach ($definition in $definitions) { . ([scriptblock]::Create($definition.Extent.Text)) }
 
+$notesAssignment = @($ast.FindAll({
+  param($node)
+  $node -is [Management.Automation.Language.AssignmentStatementAst] -and
+    $node.Left -is [Management.Automation.Language.VariableExpressionAst] -and
+    $node.Left.VariablePath.UserPath -ceq 'notesByVersion'
+}, $true) | Select-Object -First 1)
+if ($notesAssignment.Count -ne 1) { throw 'Could not locate the release notes version map.' }
+$notesMapScript = $notesAssignment[0].Extent.Text + "`n" +
+  '@($notesByVersion[''1.0.59''], $notesByVersion[''1.0.60''])'
+$selectedNotes = @(& ([scriptblock]::Create($notesMapScript)))
+if ($selectedNotes.Count -ne 2) { throw 'Could not extract the selected 1.0.59 and 1.0.60 release notes.' }
+Assert-ReleaseNotes $selectedNotes[0]
+Assert-ReleaseNotes $selectedNotes[1]
+
 function Assert-RejectedNotes {
   param([string]$Text, [string]$Label)
   $rejected = $false

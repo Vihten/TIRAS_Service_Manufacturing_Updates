@@ -61,7 +61,7 @@ jobs:
             if ($Notes -match '\?{3,}' -or $Notes.Contains([char]0xFFFD)) {
               throw 'Release notes contain question-mark corruption or a replacement character.'
             }
-            if ($Notes -match '(?i)(\u0420[\u0400-\u04ff]\u0421[\u0400-\u04ff]|\u0420[\u0400-\u04ff]\u0420[\u0400-\u04ff]|Ð[\x80-\xBF]|Ñ[\x80-\xBF]|Ã[\x80-\xBF]|â(?:€|€™|€“|€”))') {
+            if ($Notes -cmatch '(\u0420[\u0400-\u04ff]\u0421[\u0400-\u04ff]|\u0420[\u0400-\u04ff]\u0420[\u0400-\u04ff]|Ð[\x80-\xBF]|Ñ[\x80-\xBF]|Ã[\x80-\xBF]|â(?:€|€™|€“|€”))') {
               throw 'Release notes contain likely UTF-8 mojibake.'
             }
             if ($Notes -match '(?im)^\s*\[[^\]]+\]\(https?://[^)]+\)|https?://\S+') {
@@ -171,6 +171,12 @@ jobs:
           }
           $baseUrl = "https://github.com/$env:GH_REPO/releases/download/$tag"
           $notesByVersion = @{
+            '1.0.60' = @(
+              '- Перевірки діагностики відображаються окремими плитками зі станами.'
+              '- Подробиці вибраної перевірки показуються під плитками без накладання.'
+              '- Виправлено текст опису оновлень і перевірку його кодування перед публікацією.'
+              ''
+            ) -join "`n"
             '1.0.59' = @(
               '- Порівняння версій видно перед автоматичним оновленням.'
               '- Beta-прошивки доступні лише після ввімкнення відповідної опції в налаштуваннях.'
