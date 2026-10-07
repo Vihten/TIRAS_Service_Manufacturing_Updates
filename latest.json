@@ -1,29 +1,29 @@
 {
   "draft": false,
   "prerelease": false,
-  "tag_name": "v1.0.61",
-  "html_url": "https://github.com/Vihten/TIRAS_Service_Manufacturing_Updates/releases/tag/v1.0.61",
-  "body": "- Усі перевірки діагностики зібрано в одну компактну сітку без вкладок і перегортання.\n- Стан блоків показано кольором, активну перевірку — контуром, подробиці — підказкою.\n- Прибрано зайві написи та загальну смужку прогресу з діагностики.\n",
+  "tag_name": "v1.0.62",
+  "html_url": "https://github.com/Vihten/TIRAS_Service_Manufacturing_Updates/releases/tag/v1.0.62",
+  "body": "- Показує реальний прогрес кожного блока та додає завершені результати під час тесту.\n- Об’єднує дублікати пристроїв у більшу сітку діагностики.\n- Виправляє іконки скидання та заголовка.\n",
   "assets": [
     {
-      "name": "TIRAS-Service-Manufacturing-1.0.61-payload.7z",
-      "size": 32360270,
-      "browser_download_url": "https://github.com/Vihten/TIRAS_Service_Manufacturing_Updates/releases/download/v1.0.61/TIRAS-Service-Manufacturing-1.0.61-payload.7z"
+      "name": "TIRAS-Service-Manufacturing-1.0.62-payload.7z",
+      "size": 32365011,
+      "browser_download_url": "https://github.com/Vihten/TIRAS_Service_Manufacturing_Updates/releases/download/v1.0.62/TIRAS-Service-Manufacturing-1.0.62-payload.7z"
     },
     {
-      "name": "TIRAS-Service-Manufacturing-1.0.61-Online-Setup-x64.exe",
-      "size": 2443722,
-      "browser_download_url": "https://github.com/Vihten/TIRAS_Service_Manufacturing_Updates/releases/download/v1.0.61/TIRAS-Service-Manufacturing-1.0.61-Online-Setup-x64.exe"
+      "name": "TIRAS-Service-Manufacturing-1.0.62-Online-Setup-x64.exe",
+      "size": 2443713,
+      "browser_download_url": "https://github.com/Vihten/TIRAS_Service_Manufacturing_Updates/releases/download/v1.0.62/TIRAS-Service-Manufacturing-1.0.62-Online-Setup-x64.exe"
     },
     {
-      "name": "TIRAS-Service-Manufacturing-1.0.61-windows-x64.update.json",
+      "name": "TIRAS-Service-Manufacturing-1.0.62-windows-x64.update.json",
       "size": 249,
-      "browser_download_url": "https://github.com/Vihten/TIRAS_Service_Manufacturing_Updates/releases/download/v1.0.61/TIRAS-Service-Manufacturing-1.0.61-windows-x64.update.json"
+      "browser_download_url": "https://github.com/Vihten/TIRAS_Service_Manufacturing_Updates/releases/download/v1.0.62/TIRAS-Service-Manufacturing-1.0.62-windows-x64.update.json"
     },
     {
       "name": "SHA256SUMS.txt",
       "size": 359,
-      "browser_download_url": "https://github.com/Vihten/TIRAS_Service_Manufacturing_Updates/releases/download/v1.0.61/SHA256SUMS.txt"
+      "browser_download_url": "https://github.com/Vihten/TIRAS_Service_Manufacturing_Updates/releases/download/v1.0.62/SHA256SUMS.txt"
     }
   ]
 }
