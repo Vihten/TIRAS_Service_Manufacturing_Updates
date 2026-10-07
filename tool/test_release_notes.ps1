@@ -25,9 +25,9 @@ $notesAssignment = @($ast.FindAll({
 }, $true) | Select-Object -First 1)
 if ($notesAssignment.Count -ne 1) { throw 'Could not locate the release notes version map.' }
 $notesMapScript = $notesAssignment[0].Extent.Text + "`n" +
-  '@($notesByVersion[''1.0.59''], $notesByVersion[''1.0.60''], $notesByVersion[''1.0.61''], $notesByVersion[''1.0.62''])'
+  '@($notesByVersion[''1.0.59''], $notesByVersion[''1.0.60''], $notesByVersion[''1.0.61''], $notesByVersion[''1.0.62''], $notesByVersion[''1.0.63''])'
 $selectedNotes = @(& ([scriptblock]::Create($notesMapScript)))
-if ($selectedNotes.Count -ne 4) { throw 'Could not extract the selected 1.0.59, 1.0.60, 1.0.61, and 1.0.62 release notes.' }
+if ($selectedNotes.Count -ne 5) { throw 'Could not extract the selected release notes through 1.0.63.' }
 foreach ($notes in $selectedNotes) { Assert-ReleaseNotes $notes }
 
 function Assert-RejectedNotes {
