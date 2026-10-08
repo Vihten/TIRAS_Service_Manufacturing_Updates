@@ -25,10 +25,12 @@ $notesAssignment = @($ast.FindAll({
 }, $true) | Select-Object -First 1)
 if ($notesAssignment.Count -ne 1) { throw 'Could not locate the release notes version map.' }
 $notesMapScript = $notesAssignment[0].Extent.Text + "`n" +
-  '@($notesByVersion[''1.0.59''], $notesByVersion[''1.0.60''], $notesByVersion[''1.0.61''], $notesByVersion[''1.0.62''], $notesByVersion[''1.0.63''], $notesByVersion[''1.0.64''], $notesByVersion[''1.0.65''])'
+  '@($notesByVersion[''1.0.59''], $notesByVersion[''1.0.60''], $notesByVersion[''1.0.61''], $notesByVersion[''1.0.62''], $notesByVersion[''1.0.63''], $notesByVersion[''1.0.64''], $notesByVersion[''1.0.65''], $notesByVersion[''1.0.66''])'
 $selectedNotes = @(& ([scriptblock]::Create($notesMapScript)))
-if ($selectedNotes.Count -ne 7) { throw 'Could not extract the selected release notes through 1.0.65.' }
+if ($selectedNotes.Count -ne 8) { throw 'Could not extract the selected release notes through 1.0.66.' }
 foreach ($notes in $selectedNotes) { Assert-ReleaseNotes $notes }
+$expectedLatestNotes = [regex]::Unescape('- \u0412\u0438\u043f\u0440\u0430\u0432\u043b\u0435\u043d\u043e \u043f\u0456\u0434\u0441\u0443\u043c\u043e\u043a \u0434\u0456\u0430\u0433\u043d\u043e\u0441\u0442\u0438\u043a\u0438: \u043d\u0435\u043f\u0435\u0440\u0435\u0432\u0456\u0440\u0435\u043d\u0456 \u0431\u043b\u043e\u043a\u0438 \u0431\u0456\u043b\u044c\u0448\u0435 \u043d\u0435 \u043f\u043e\u0437\u043d\u0430\u0447\u0430\u044e\u0442\u044c\u0441\u044f \u0443\u0441\u043f\u0456\u0448\u043d\u0438\u043c\u0438 \u043f\u0456\u0441\u043b\u044f \u0440\u0443\u0447\u043d\u043e\u0433\u043e \u043f\u0456\u0434\u0442\u0432\u0435\u0440\u0434\u0436\u0435\u043d\u043d\u044f.') + "`n"
+if ($selectedNotes[7] -cne $expectedLatestNotes) { throw 'Version 1.0.66 release notes differ from the approved diagnostic summary.' }
 
 function Assert-RejectedNotes {
   param([string]$Text, [string]$Label)
